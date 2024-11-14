@@ -1,10 +1,27 @@
 // Objetos -> 0401 Constructor Functions 2
 
-function Produto(nome, preco, taxa) {
-  const precoFinal = preco * taxa;
-  this.nome = nome;
-  this.preco = precoFinal;
+// objeto puro sem construtor
+// const Dom = {
+//   seletor: 'li',
+//   element() {
+//     return document.querySelector(this.seletor);
+//   },
+//   ativar() {
+//     this.element().classList.add('ativar');
+//   }
+// }
+
+// com func construtora
+function Dom(seletor) {
+  this.element = function () {
+    return document.querySelector(seletor);
+  };
+  this.ativar = function () {
+    this.element().classList.add('ativar');
+  }
 }
 
-const p1 = new Produto('abacate', 14, 1.5);
-console.log(p1.preco);
+const li = new Dom('li');
+const ul = new Dom('ul');
+const lastLi = new Dom('li:last-child');
+lastLi.ativar();
