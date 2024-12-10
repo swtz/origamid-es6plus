@@ -1,12 +1,35 @@
-// Access Methods
+// #1
+const comidas = ['Pizza', 'Frango', 'Carne', 'Macarrão'];
 
-const arr = [].concat(['item1', 'item2']); // concatena arrays
+const firstValue = comidas.shift();
+const lastValue = comidas.pop();
 
-const animals = ['Jaguatirica', 'Leopardo'];
+comidas.push('Arroz');
+comidas.unshift('Peixe', 'Batata');
 
-['Leão', 'Vaca', ...animals].includes(...animals); // => boolean | ...string[]
+console.log(comidas);
 
-const linguagens = ['html', 'css', 'js', 'php', 'python'];
-const joinedLang = linguagens.join(' & ') // => string
 
-const arr2 = linguagens.slice(1, 3); // ['css', 'js'] | arr.slice() => new Array (deep copy)
+// #2
+const estudantes = ['Marcio', 'Brenda', 'Joana', 'Kleber', 'Julia'];
+
+estudantes.sort();
+estudantes.reverse();
+estudantes.includes('Joana');
+estudantes.includes('Juliana');
+
+
+// #3
+let html = `<section>
+    <div>Sobre</div>
+    <div>Produtos</div>
+    <div>Contato</div>
+</section>`;
+
+let newHtml = html.split('section').join('ul').split('div').join('li');
+
+
+// #4
+const carros = ['Ford', 'Fiat', 'VW', 'Honda'];
+const ogCarros = carros.slice();
+carros.pop();
