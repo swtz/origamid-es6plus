@@ -1,23 +1,12 @@
-// Algumas maneiras de criar Arrays
+// Access Methods
 
-Array.of({nome: 'Leonardo', idade: 25}, {}, {}, {});
-Array('Leonardo');
+const arr = [].concat(['item1', 'item2']); // concatena arrays
 
-// mutator methods
+const animals = ['Jaguatirica', 'Leopardo'];
 
-const arr = ['Pedro', 'Paulo', 'João', 'Lucas'];
-arr.sort(); // organiza caractere por caractere com base na tabela unicode
-arr.unshift('Laura', 'Maria'); // add at the beginning => arr.length
-arr.push('Leonardo'); // add at the final => arr.length
-arr.shift(); // remove the first item => removed item
-arr.pop(); // remove the last item => removed item
-arr.reverse(); // inverte a ordem do array => new Array
+['Leão', 'Vaca', ...animals].includes(...animals); // => boolean | ...string[]
 
-const arr2 = ['Fulano', 'Sicrano', 'Beltrano']
+const linguagens = ['html', 'css', 'js', 'php', 'python'];
+const joinedLang = linguagens.join(' & ') // => string
 
-const scrapArr2 = arr.splice(4, 1, ...arr2); // splice = emendar => <removed_items>[]
-
-const arr3 = ['Maçã', 'Abacate', 'Limão', 'Cereja'];
-const copiedArr3 = arr3.copyWithin(0, 2); // .copyWithin(alvo, start, end) => new Array | .copyWithin(-1)
-
-arr3.fill(3); // .fill(<value>, start, end) | preenche a array
+const arr2 = linguagens.slice(1, 3); // ['css', 'js'] | arr.slice() => new Array (deep copy)
