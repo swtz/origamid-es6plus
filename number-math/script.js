@@ -1,21 +1,42 @@
-const num = 22.22;
-const fixedNum = num.toFixed(); // retorna uma string | arg0 -> número de casas decimais
+// #1
+const max = 2000;
+const min = 1050;
+const randNumber = function () { return Math.random() * (max - min + 1) + min };
 
-const currencyNum = num.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL' });
+// for (i=0; i < 500; i++) {
+//     console.log(Math.floor(randNumber()));
+// };
 
-// Math é um objeto nativo
 
-console.log(Math.ceil(num)); // ceil = teto | força o resultado 'para cima' | -> 23 (Int)
-console.log(Math.floor(22.9)); // floor = chão | força o resultado 'para baixo' | -> 22 (Int)
-console.log(Math.round(22.5)); // arredonda com base na matemática | -> 23 (Int)
+// #2
+const numeros = '4, 5, 20, 8, 9';
+const arrayStr = numeros.split(',');
+// const arrayNum = [];
 
-Math.max(4, 23, 45, 66, 12, 3, 45, 88); // 88 | existe tbm o Math.min()
+// arrayStr.forEach((item) => {
+//     arrayNum.push(Number.parseInt(item));
+// })
 
-Math.random(); // 0.XXX
+// console.log(Math.max(...arrayNum));
 
-// Para gerar um número aleatório entre 2 algarismos
+// coach-luiz: Math.max(...arrayStr); // 20 | O método já identifica o algarismo.
 
-const min = 30;
-const max = 70;
 
-console.log(`Número aleatório entre ${max} & ${min}: ${Math.floor(Math.random() * (max - min + 1) + min)}`);
+// #3
+const listaPrecos = ['R$ 59,99', ' R$ 100,222', 'R$ 230  ', 'r$  200'];
+const arrayTemp = [];
+let soma = 0;
+
+function calcPrice(numbers) {
+    numbers.forEach((item) => {
+        const cleanedNum = item.toLocaleLowerCase().replace('r$ ', '').trim().replace(',', '.');
+        const roundedNum = Math.round(Number.parseFloat(cleanedNum));
+        soma += roundedNum;
+
+        arrayTemp.push(roundedNum);
+    })
+
+    console.log('Vetor: ', arrayTemp);
+
+    return `Soma do vetor: ${soma}`;
+}
