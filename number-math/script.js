@@ -1,42 +1,23 @@
-// #1
-const max = 2000;
-const min = 1050;
-const randNumber = function () { return Math.random() * (max - min + 1) + min };
+// Algumas maneiras de criar Arrays
 
-// for (i=0; i < 500; i++) {
-//     console.log(Math.floor(randNumber()));
-// };
+Array.of({nome: 'Leonardo', idade: 25}, {}, {}, {});
+Array('Leonardo');
 
+// mutator methods
 
-// #2
-const numeros = '4, 5, 20, 8, 9';
-const arrayStr = numeros.split(',');
-// const arrayNum = [];
+const arr = ['Pedro', 'Paulo', 'João', 'Lucas'];
+arr.sort(); // organiza caractere por caractere com base na tabela unicode
+arr.unshift('Laura', 'Maria'); // add at the beginning => arr.length
+arr.push('Leonardo'); // add at the final => arr.length
+arr.shift(); // remove the first item => removed item
+arr.pop(); // remove the last item => removed item
+arr.reverse(); // inverte a ordem do array => new Array
 
-// arrayStr.forEach((item) => {
-//     arrayNum.push(Number.parseInt(item));
-// })
+const arr2 = ['Fulano', 'Sicrano', 'Beltrano']
 
-// console.log(Math.max(...arrayNum));
+const scrapArr2 = arr.splice(4, 1, ...arr2); // splice = emendar => <removed_items>[]
 
-// coach-luiz: Math.max(...arrayStr); // 20 | O método já identifica o algarismo.
+const arr3 = ['Maçã', 'Abacate', 'Limão', 'Cereja'];
+const copiedArr3 = arr3.copyWithin(0, 2); // .copyWithin(alvo, start, end) => new Array | .copyWithin(-1)
 
-
-// #3
-const listaPrecos = ['R$ 59,99', ' R$ 100,222', 'R$ 230  ', 'r$  200'];
-const arrayTemp = [];
-let soma = 0;
-
-function calcPrice(numbers) {
-    numbers.forEach((item) => {
-        const cleanedNum = item.toLocaleLowerCase().replace('r$ ', '').trim().replace(',', '.');
-        const roundedNum = Math.round(Number.parseFloat(cleanedNum));
-        soma += roundedNum;
-
-        arrayTemp.push(roundedNum);
-    })
-
-    console.log('Vetor: ', arrayTemp);
-
-    return `Soma do vetor: ${soma}`;
-}
+arr3.fill(3); // .fill(<value>, start, end) | preenche a array
