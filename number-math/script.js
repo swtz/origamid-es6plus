@@ -1,35 +1,55 @@
+const carros = ['Ford', 'Fiat', 'Honda'];
+
+const retornoForEach = carros.forEach((item, index, array) => {
+    console.log(item);
+});
+
+console.log('ForEach: ', retornoForEach);
+
+const pessoas = ['Leonardo', 'Laura', 'Maria', 'Giovana', 'Letícia'];
+
+const retornoMap = pessoas.map((item, index, array) => {
+    return item.toUpperCase();
+});
+
+console.log(retornoMap);
+
+const numbers = [45, 33, 2, 6, 88, 3];
+
+const numbersx2 = numbers.map((item) => {
+    return item * 2;
+});
+
+console.log(numbersx2);
+
+const aulas = [
+    {
+        nome: 'HTML 1',
+        min: 15
+    },
+    {
+        nome: 'HTML 2',
+        min: 10
+    },
+    {
+        nome: 'CSS 1',
+        min: 20
+    },
+    {
+        nome: 'JS 1',
+        min: 25
+    },
+];
+
 // #1
-const comidas = ['Pizza', 'Frango', 'Carne', 'Macarrão'];
-
-const firstValue = comidas.shift();
-const lastValue = comidas.pop();
-
-comidas.push('Arroz');
-comidas.unshift('Peixe', 'Batata');
-
-console.log(comidas);
+// function getMinutes(aula) {
+//     return aula.min;
+// };
 
 
-// #2
-const estudantes = ['Marcio', 'Brenda', 'Joana', 'Kleber', 'Julia'];
+//#2
+const getMinutes = aula => aula.min;
 
-estudantes.sort();
-estudantes.reverse();
-estudantes.includes('Joana');
-estudantes.includes('Juliana');
+const classDuration = aulas.map(getMinutes);
 
-
-// #3
-let html = `<section>
-    <div>Sobre</div>
-    <div>Produtos</div>
-    <div>Contato</div>
-</section>`;
-
-let newHtml = html.split('section').join('ul').split('div').join('li');
-
-
-// #4
-const carros = ['Ford', 'Fiat', 'VW', 'Honda'];
-const ogCarros = carros.slice();
-carros.pop();
+console.log(classDuration);
