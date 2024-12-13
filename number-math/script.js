@@ -1,25 +1,28 @@
-const aulas = [
-    {
-        nome: 'HTML 1',
-        min: 15
-    },
-    {
-        nome: 'HTML 2',
-        min: 10
-    },
-    {
-        nome: 'CSS 1',
-        min: 20
-    },
-    {
-        nome: 'JS 1',
-        min: 25
-    },
-];
+const frutas = ['Maçã', 'Pêra', 'Romã'];
 
-const nomeAulas = aulas.reduce((prev, current, index) => {
-    prev[index] = current.nome
-    return prev;
-}, {});
+const temUva = frutas.some((item) => {
+    return item === 'Uva';
+})
 
-console.log(nomeAulas);
+// console.log(temUva);
+
+const tem4Letras = frutas.every((item) => {
+    return (item.length === 4);
+});
+
+// console.log(tem4Letras);
+
+const numeros = [6, 43, 22, 88, 101, 29];
+
+const maiorQue3 = numeros.every(n => n >= 5);
+
+// console.log(maiorQue3);
+
+const findNumber = numeros.find(item => item >= 89); // 101
+const findIndexApple = frutas.findIndex(item => item.toLocaleLowerCase() === 'apple'); // -1
+
+// console.log(findNumber);
+
+const listaNumeros = numeros.filter(n => n <= 22); // [6, 22]
+
+console.log(listaNumeros);
