@@ -1,15 +1,25 @@
-const aulas = [10, 25, 30];
+const aulas = [
+    {
+        nome: 'HTML 1',
+        min: 15
+    },
+    {
+        nome: 'HTML 2',
+        min: 10
+    },
+    {
+        nome: 'CSS 1',
+        min: 20
+    },
+    {
+        nome: 'JS 1',
+        min: 25
+    },
+];
 
-const reduceAulas = aulas.reduce((acumulador, item, index, array) => {
-    return acumulador + item;
-}, 0);
+const nomeAulas = aulas.reduce((prev, current, index) => {
+    prev[index] = current.nome
+    return prev;
+}, {});
 
-// console.log(reduceAulas);
-
-const numeros = [10, 25, 60, 5, 35, 10];
-
-const maiorValor = numeros.reduce((prev, current) => {
-    return prev < current ? current : prev;
-});
-
-console.log(maiorValor);
+console.log(nomeAulas);
