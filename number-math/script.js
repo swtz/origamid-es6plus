@@ -1,23 +1,27 @@
-// console.log(Math.max.apply(null, [3, 4, 6, 1, 43, 34, 42, 56, 7])); // arg0: Array
-// console.log(Math.max.call(null, 3, 4, 6, 1, 43, 34, 42, 56, 7)); // arg0: ...Array
+// #1
+const $ = document.querySelectorAll.bind(document);
+const allP = $('p');
 
-const li = document.querySelectorAll('li');
+const totalCharInP = Array.prototype.reduce.call(allP, (prev, current) => {
+    const pTextLength = current.innerText.length;
+    return prev + pTextLength;
+}, 0);
 
-const filteredLi = Array.prototype.filter.bind(li, (item) => {
-    return item.classList.contains('ativo');
-});
+console.log(totalCharInP); // 655
 
-console.log(filteredLi); // retorna o corpo da fn com o novo this
+// #2
+function createHtmlElement(tag, cls, content) {
+    let el = document.createElement(tag);
+    cls ? el.classList.add(cls) : null;
+    content ? el.innerText = content : null;
+    return el;
+}
 
-const $ = document.querySelectorAll.bind(document); // encurtador de fn
+// const h1 = createHtmlElement('h1','ativo', 'Hello, world!');
 
-function imc(altura, peso) {
-    return +(peso / (altura * altura)).toFixed(2);
-};
+// console.log(h1); // h1.ativo
 
-const imc180 = imc.bind(null, 1.80);
+// #3
+const generateH1 = createHtmlElement.bind(null, 'h1', 'titulo');
 
-console.log(imc(1.60, 80));
-console.log(imc180(80));
-
-// fazendo 'bind' de uma fn setando um argumento fixo
+const h1 = generateH1('Conteúdo gerado dinamicamente');
