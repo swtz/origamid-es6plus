@@ -1,59 +1,49 @@
-// #1
-const cursos = document.querySelectorAll('.curso');
-const arrayCursos = Array.from(cursos);
+const somaFn = new Function('num1', 'num2', 'return num1 + num2');
 
-const someResult = arrayCursos.map((item, index) => {
-    const objCurso = {};
-    objCurso.titulo = item.querySelector('h1').innerText;
-    objCurso.descricao = item.querySelector('p').innerText;
-    objCurso.horas = item.querySelector('.aulas').innerText;
-    objCurso.aulas = item.querySelector('.horas').innerText;
-    return objCurso;
+function carDescription(owner) {
+    return this.nome + ' ' + this.marca + ' from ' + owner;
+};
+
+const car = {
+    0: "Savero",
+    marca: "VW"
+}
+
+carDescription.call(car, 'Lüders'); // 'Savero VW from Lüders'
+carDescription.call({ nome: '350i', marca: 'BMW' }, 'Kristian'); // '350i BMW from Kristian'
+
+// const carros = ['Ford', 'Honda', 'VW'];
+// const frutas = ['Maçã', 'Pêra', 'Manga'];
+
+// carros.forEach.call(frutas, (item) => {
+//     console.log(item);
+// }); // Maçã, Pêra, Manga
+
+function Dom(seletor) {
+    this.element = document.querySelector(seletor);
+};
+
+Dom.prototype.ativo = function (classe) {
+    this.element.classList.add(classe);
+};
+
+const ul = new Dom('ul');
+const li = new Dom('li');
+const body = new Dom('body');
+
+Dom.prototype.ativo.call(body, 'ativo'); // uso mais correto
+// o objeto deve ser "parecido" com o objeto original do método 'call'
+
+const frutas = ['Uva', 'Maçã', 'Banana'];
+
+Array.prototype.pop.call(frutas);
+frutas.pop();
+
+// console.log(frutas);
+
+const allLi = document.querySelectorAll('li');
+const arrayTextLi = Array.prototype.filter.call(allLi, (item) => {
+    return item.innerText === 'Item 3';
 });
 
-console.log(someResult);
-
-// #2
-const numeros = [3, 44, 333, 23, 122, 322, 33];
-
-const biggerThanHundred = numeros.filter(n => n > 100);
-
-console.log(biggerThanHundred);
-
-// #3
-const instrumentos = ['Guitarra', 'Baixo', 'Bateria', 'Teclado'];
-
-const baixoExists = instrumentos.some(i => i.toLowerCase() === 'baixo');
-
-console.log(baixoExists);
-
-// #4
-const compras = [
-    {
-        item: 'Banana',
-        preco: 'R$ 4,99'
-    },
-    {
-        item: 'Ovo',
-        preco: 'R$ 2,99'
-    },
-    {
-        item: 'Carne',
-        preco: 'R$ 25,49'
-    },
-    {
-        item: 'Refrigerante',
-        preco: 'R$ 5,35'
-    },
-    {
-        item: 'Quejo',
-        preco: 'R$ 10,60'
-    }
-]
-
-const totalPrice = compras.reduce((prev, current, index) => {
-    const itemPrice = +current.preco.toLowerCase().trim().replace('r$ ', '').replace(',', '.');
-    return prev + itemPrice;
-}, 0);
-
-console.log(totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
+console.log(arrayTextLi);
