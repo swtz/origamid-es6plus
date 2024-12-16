@@ -1,43 +1,26 @@
-const carro = {
-    rodas: 4,
-    init(marca) {
-        this.marca = marca
-        return this
-    },
-    acelerar() {
-        return `O veículo da marca ${this.marca} acelerou com as ${this.rodas} rodas.`
-    },
-    buzinar() {
-        return `${this.marca} buzinou`
-    }
-}
+// Object.getOwnPropertyDescriptors(Array);
+// Object.getOwnPropertyDescriptors(Array.prototype);
+// Object.getOwnPropertyDescriptor(Array.prototype, 'forEach');
 
-const mitsubishi = Object.create(carro).init('Mitsubishi');
+Object.keys(Array); // [] | Array não possui propriedades enumeráveis
 
-const kawasaki = {
-    tipo: 'moto',
-    marca: 'kawasaki',
-    rodas: 2,
-    capacete: true
-}
+const moto = { capacete: true };
 
-Object.assign(kawasaki, { acelerar() { return `O veículo da marca ${this.marca} acelerou com as ${this.rodas} rodas.` } });
-
-const enfermeiro = { nome: null };
-
-Object.defineProperties(enfermeiro, {
-    coren: {
-        // value: 'SC-XXXX-XX',
-        // configurable: false, // avoid to delete | default: false
-        // writable: false,  // avoid to change value | default: false
-        // enumerable: false, // default: false
+Object.defineProperties(moto, {
+    rodas: {
+        enumerable: true,
         get() {
-            console.log('passou pelo get');
-            return this._coren;
+            return this._rodas;
         },
         set(value) {
-            console.log('passou pelo set');
-            this._coren = value.toLowerCase();
+            this._rodas = value;
         }
     }
 });
+
+Object.getPrototypeOf(['item 1', 'item 2']); // same return of Array.prototype
+
+obj1 = {};
+obj2 = {};
+
+console.log(Object.is(obj1, obj2)); // false
