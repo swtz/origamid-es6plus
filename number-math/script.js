@@ -1,27 +1,43 @@
-// #1
-const $ = document.querySelectorAll.bind(document);
-const allP = $('p');
-
-const totalCharInP = Array.prototype.reduce.call(allP, (prev, current) => {
-    const pTextLength = current.innerText.length;
-    return prev + pTextLength;
-}, 0);
-
-console.log(totalCharInP); // 655
-
-// #2
-function createHtmlElement(tag, cls, content) {
-    let el = document.createElement(tag);
-    cls ? el.classList.add(cls) : null;
-    content ? el.innerText = content : null;
-    return el;
+const carro = {
+    rodas: 4,
+    init(marca) {
+        this.marca = marca
+        return this
+    },
+    acelerar() {
+        return `O veículo da marca ${this.marca} acelerou com as ${this.rodas} rodas.`
+    },
+    buzinar() {
+        return `${this.marca} buzinou`
+    }
 }
 
-// const h1 = createHtmlElement('h1','ativo', 'Hello, world!');
+const mitsubishi = Object.create(carro).init('Mitsubishi');
 
-// console.log(h1); // h1.ativo
+const kawasaki = {
+    tipo: 'moto',
+    marca: 'kawasaki',
+    rodas: 2,
+    capacete: true
+}
 
-// #3
-const generateH1 = createHtmlElement.bind(null, 'h1', 'titulo');
+Object.assign(kawasaki, { acelerar() { return `O veículo da marca ${this.marca} acelerou com as ${this.rodas} rodas.` } });
 
-const h1 = generateH1('Conteúdo gerado dinamicamente');
+const enfermeiro = { nome: null };
+
+Object.defineProperties(enfermeiro, {
+    coren: {
+        // value: 'SC-XXXX-XX',
+        // configurable: false, // avoid to delete | default: false
+        // writable: false,  // avoid to change value | default: false
+        // enumerable: false, // default: false
+        get() {
+            console.log('passou pelo get');
+            return this._coren;
+        },
+        set(value) {
+            console.log('passou pelo set');
+            this._coren = value.toLowerCase();
+        }
+    }
+});
