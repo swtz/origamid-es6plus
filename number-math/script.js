@@ -1,26 +1,14 @@
-// Object.getOwnPropertyDescriptors(Array);
-// Object.getOwnPropertyDescriptors(Array.prototype);
-// Object.getOwnPropertyDescriptor(Array.prototype, 'forEach');
+const carro = {
+    marca: 'Saveiro',
+    ano: 2018
+}
 
-Object.keys(Array); // [] | Array não possui propriedades enumeráveis
+const moto = Object.create(carro);
 
-const moto = { capacete: true };
+moto.marca = 'Kawasaki';
+moto.ano = 2022;
 
-Object.defineProperties(moto, {
-    rodas: {
-        enumerable: true,
-        get() {
-            return this._rodas;
-        },
-        set(value) {
-            this._rodas = value;
-        }
-    }
-});
+console.log(moto);
+console.log(carro.isPrototypeOf(moto)); // true
 
-Object.getPrototypeOf(['item 1', 'item 2']); // same return of Array.prototype
-
-obj1 = {};
-obj2 = {};
-
-console.log(Object.is(obj1, obj2)); // false
+Object.prototype.toString.call([]); // [object Array]
