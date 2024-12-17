@@ -3,13 +3,18 @@ function initTabNav() {
   const tabContent = document.querySelectorAll('.js-tabcontent section');
 
   if (tabMenu.length && tabContent.length) {
-    tabContent[0].classList.add('ativo');
+    const showDirection = tabContent[0].dataset.anime.split(' ');
+    const showDown = showDirection[0];
+    const showRight = showDirection[1];
+
+    tabContent[0].classList.add('ativo', showRight);
 
     function activeTab(index) {
       tabContent.forEach((section) => {
-        section.classList.remove('ativo');
+        section.classList.remove('ativo', showRight);
       });
-      tabContent[index].classList.add('ativo');
+
+      tabContent[index].classList.add('ativo', showRight);
     }
 
     tabMenu.forEach((itemMenu, index) => {

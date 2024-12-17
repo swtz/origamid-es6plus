@@ -11,7 +11,7 @@ console.log(h1.dataset); // { width: 'ola' }
 // é uma maneira de facilitar a comunicação do 'js' com a 'dom'
 
 // Dicas do seletor CSS
-// [data-anyName]
-// [data-anyName="anyValue"]
-// [data-anyName^="any"] // ^ -> "começa com..."
-
+// [data-any-name]
+// [data-any-name="anyValue"]
+// [data-any-name^="any"] // ^ -> "começa com..."
+// [data-any-name*="any"] // * -> "tudo que contém..."
