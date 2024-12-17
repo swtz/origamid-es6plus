@@ -2,37 +2,15 @@
 
 // AULA 0502 | MODULES
 
-export default function sayHello() {
-  return 'Hello!';
-}
+// Características do uso de módulos
 
-// export default -> import anyNameForFn from './path/script.js'; 
-// É usado para exportar SOMENTE 1 variável
-// Não é necessário importar a função com o mesmo nome
+// 'use strict' por padrão em todos os arquivos
+// variáveis ficam no escopo do módulo, ou seja, é necessário exportá-las para usá-las em outro lugar
+// 'this' faz referência ao 'undefined', em vez de ao objeto 'window'
+// uma das vantagens de usar módulos | <script type="module"></script> |
+// é que as variáveis criadas nele NÃO SE TORNAM PROPRIEDADES DO OBJETO GLOBAL, isto é, o 'window'
+// carregamento assíncrono; execução síncrona
 
-// #!important
-// Ao reunir a execução dos módulos em um arquivo só, por exemplo, no arquivo 'script.js'
-// Ao usá-lo no HTML por meio da tag <script></script>
-// Somente vai funcionar passando o attr 'type="module"'
-
-
-// into file script.js
-export function sayHelloWorld() {
-  return 'Hello, world!';
-}
-
-export function sayHelloDear() {
-  return 'Hello, dear!';
-}
-
-// Named Export
-// export -> import { sayHelloWorld, sayHelloDear } from './path/script.js';
-// É usado para exportar MAIS DE 1 variável
-// É necessário importar a função com o mesmo nome
-// É possível 'apelidar' a variável -> import { sayHelloWorld as sayHW } from './path/script.js';
-// Caso o dev não saiba dos métodos que o módulo possui -> import * as greetings from './path/script.js';
-// Uso: greetings.sayHelloDear();
-
-
-// Normalmente, o módulo que é exportado com 'export default' indica que o módulo
-// realiza alguma função específica
+// 'use strict' é um termo usado no início do module.js
+// ele auxilia na detecção de erros, por apresentar erros no console
+// de operações não permitidas; ele "avisa" o dev de que tal ops não vai funcionar
