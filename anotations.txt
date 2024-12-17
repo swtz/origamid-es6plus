@@ -1,17 +1,38 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0501 | DATASET
+// AULA 0502 | MODULES
 
-const h1 = document.querySelector('h1');
-h1.setAttribute('data-width', 'ola');
+export default function sayHello() {
+  return 'Hello!';
+}
 
-console.log(h1.dataset); // { width: 'ola' }
+// export default -> import anyNameForFn from './path/script.js'; 
+// É usado para exportar SOMENTE 1 variável
+// Não é necessário importar a função com o mesmo nome
 
-// 'dataset' é uma propriedade presente em todos os objetos do tipo HTMLElement
-// é uma maneira de facilitar a comunicação do 'js' com a 'dom'
+// #!important
+// Ao reunir a execução dos módulos em um arquivo só, por exemplo, no arquivo 'script.js'
+// Ao usá-lo no HTML por meio da tag <script></script>
+// Somente vai funcionar passando o attr 'type="module"'
 
-// Dicas do seletor CSS
-// [data-any-name]
-// [data-any-name="anyValue"]
-// [data-any-name^="any"] // ^ -> "começa com..."
-// [data-any-name*="any"] // * -> "tudo que contém..."
+
+// into file script.js
+export function sayHelloWorld() {
+  return 'Hello, world!';
+}
+
+export function sayHelloDear() {
+  return 'Hello, dear!';
+}
+
+// Named Export
+// export -> import { sayHelloWorld, sayHelloDear } from './path/script.js';
+// É usado para exportar MAIS DE 1 variável
+// É necessário importar a função com o mesmo nome
+// É possível 'apelidar' a variável -> import { sayHelloWorld as sayHW } from './path/script.js';
+// Caso o dev não saiba dos métodos que o módulo possui -> import * as greetings from './path/script.js';
+// Uso: greetings.sayHelloDear();
+
+
+// Normalmente, o módulo que é exportado com 'export default' indica que o módulo
+// realiza alguma função específica
