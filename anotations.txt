@@ -1,0 +1,17 @@
+// ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
+
+// AULA 0501 | DATASET
+
+const h1 = document.querySelector('h1');
+h1.setAttribute('data-width', 'ola');
+
+console.log(h1.dataset); // { width: 'ola' }
+
+// 'dataset' é uma propriedade presente em todos os objetos do tipo HTMLElement
+// é uma maneira de facilitar a comunicação do 'js' com a 'dom'
+
+// Dicas do seletor CSS
+// [data-anyName]
+// [data-anyName="anyValue"]
+// [data-anyName^="any"] // ^ -> "começa com..."
+
