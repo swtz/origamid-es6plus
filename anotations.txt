@@ -1,16 +1,7 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0502 | MODULES
+// AULA 0503 | MODAL
 
-// Características do uso de módulos
-
-// 'use strict' por padrão em todos os arquivos
-// variáveis ficam no escopo do módulo, ou seja, é necessário exportá-las para usá-las em outro lugar
-// 'this' faz referência ao 'undefined', em vez de ao objeto 'window'
-// uma das vantagens de usar módulos | <script type="module"></script> |
-// é que as variáveis criadas nele NÃO SE TORNAM PROPRIEDADES DO OBJETO GLOBAL, isto é, o 'window'
-// carregamento assíncrono; execução síncrona
-
-// 'use strict' é um termo usado no início do module.js
-// ele auxilia na detecção de erros, por apresentar erros no console
-// de operações não permitidas; ele "avisa" o dev de que tal ops não vai funcionar
+// 1st: cria-se a section no começo/final de tudo (dentro do body)
+// 2nd: criar attr's do tipo dataset para manipular exibição do modal
+// 3rd: estilização
