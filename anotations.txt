@@ -5,3 +5,6 @@
 // 1st: cria-se a section no começo/final de tudo (dentro do body)
 // 2nd: criar attr's do tipo dataset para manipular exibição do modal
 // 3rd: estilização
+// 4h: javascript
+  // 4.1: selecionar botões e section que representa o container do modal
+  // 4.2: 
