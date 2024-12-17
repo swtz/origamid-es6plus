@@ -1,10 +1,7 @@
-// #1
-const animalsDescriptionSections = document.querySelectorAll('.animais-descricao section');
+// Correção
 
-animalsDescriptionSections.forEach((section) => {
-    section.dataset.anime = 'show-down';
-    section.dataset.anime += ' show-right';
-});
+// #1
+// O coach-andre colocou os attr's de maneira manual KEKW
 
 
 // #2
@@ -14,12 +11,4 @@ animalsDescriptionSections.forEach((section) => {
 // style.css | @keyframes show-down/show-right
 
 // #4
-const jsClasses = document.querySelectorAll('[class*=js-]');
-
-jsClasses.forEach((el) => {
-    const jsClass = el.classList[el.classList.length - 1];
-    const newDatasetAttr = jsClass.replace('js', 'data');
-
-    el.classList.remove(jsClass);
-    el.setAttribute(newDatasetAttr, '');
-});
+// O coach-andre colocou os attr's e removeu as classes de maneira manual KEKW
