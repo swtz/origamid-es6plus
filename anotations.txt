@@ -1,14 +1,30 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0503 | MODAL
+// AULA 0504 | Tooltip
 
-// 1st: cria-se a section no começo/final de tudo (dentro do body)
-// 2nd: criar attr's do tipo dataset para manipular exibição do modal
-// 3rd: estilização
-// 4h: javascript
-  // 4.1: selecionar botões e section que representa o container do modal
-  // 4.2: criar 3 funções (abrir, fechar e clickOutside)
-    // 4.2.1: ao desenvolver a fn clickOutside, checar o valor de this
-// 5th: iniciar função no script principal
-// 6th: otimizar as funções abrir/fechar em uma só usando 
-// HTMLElement.classList.toggle
+// A criação do 'tooltip' é dinâmica
+// Após a estilização, é necessário obter a posição do cursor em relação à page
+
+// nome do eventListener: 'mouseover' | retorno do event: [object MouseEvent]
+// Nesse objeto, existem as props pageX e pageY que indicam a posição do cursor
+// em relação à page
+
+// Agora, por meio do javascript, pode-se obter esses valores e
+// alinhar o 'tooltip' ao posicionamento do cursor
+// HTMLElement.style retorna um objeto onde é possível manipular qualquer
+// style do elemento, tais como 'top' e 'left' do 'tooltip'
+
+// nome do eventListener 'mouseleave' | permite disparar uma quando o cursor
+// 'deixar' o elemento.
+
+// HTMLElement.addEventListener('event', {}) | suporta um objeto, porém
+// esse objeto precisar ter a fn 'handleEvent' que é disparada pelo eventListener;
+// é útil para deixar o código mais organizado.
+
+// É uma boa prática remover o eventListener 'mouseleave' ao remover o 'tooltip'
+
+// nome do eventListener: 'mousemove' | esse event é adicionado ao elemento
+// que cria o 'tooltip' e o 'callback-object' atualiza o 'top/left' do 'tooltip'
+// segundo a posição do cursor em tempo real.
+
+// É uma boa prática remover o eventListener 'mousemove' ao remover o 'tooltip'
