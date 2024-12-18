@@ -1,40 +1,42 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0504 | Menu Dropdown
+// AULA 0506 | Event Bubble
 
-// É possível fazer o 'dropdown-menu' somente com css, mas isso
-// se torna um problema no mobile
+// Call Stack: onde os eventos entram
+// Memory: onde ficam as variáveis
+// Web Api:
+// Callback Queue & event loop: onde ficam os eventos assíncronos
 
-// Para criar um triângulo no css:
-`
-.triangulo-vermelho::before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: -10px;
-  width: 0px;
-  height: 0px;
-  border-bottom: 10px solid #E54;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-}
-`
+// 1st row of <script.js>
+  // Hoisting: variáveis são colocadas na memória
+    // A const/let vai para a Temporary Dead Zone, ou seja, existe a variável,
+    // mas não o seu valor
+    // funções são colocadas na memória COM O CORPO
+  // Execução do script
+    // executa métodos e preenche as variáveis
+    // HTMLElement.addEventListener('click', callbackFn);
+      // um evento 'click' é atribuído ao elemento e a callbackFn
+      // é disparada quando isso ocorrer. Porém, esse "encadeamento"
+      // HTMLElement<-->click<-->callbackFn é colocado na Web Api, ou seja,
+      // a UI do browser se comunica com essa Web Api, assim recebendo o evento
+      // e disparando a função.
+    // callbackFn disparada:
+      // é colocada na Call Stack
+      // o método segue sendo executado de maneira síncrona
+      // html.addEventListener('click', handleOutside);
+      // html<-->click<-->handleOutside
 
-// ficar atento ao 'gap' entre o menu e o sub-menu | pode ser resolvido
-// ajustando a propriedade top do .dropdown-menu
+    // Web Api: HTMLElement<-->click<-->callbackFn | html<-->click<-->handleOutside
 
-// após terminar o css (o dropdown fica pronto para pc users com :hover)
-// será usado o javascript para que o pessoal do mobile consiga usar
-
-// Tip for mobile: eventListener 'touchstart' dispara o evento de "click" na hora
-// caso o dev use 'click', no ambiente mobile, o evento de "click" demora 300ms
-// para ocorrer
-
-// para add vários eventos em 1 (ou mais) elementos:
-NodeList.forEach((HTMLElement) => {
-  ['touchstart', 'click'].forEach(userEvent => {
-    HTMLElement.addEventListener(userEvent, handleClick)
-  })
-});
-
-// depois, basta desenvolver a fn handleClick
+    // Bubble phase:
+      // Definição: verifica se o elemento pai possui um evento de clique.
+      // Não possui? Segue para o próximo.
+      // Possui? Executa o evento, assim disparando a função handleOutside.
+      // A fn handleOutside remove uma classe css. Isso se torna um bug, pois é
+      // disparado um evento (e sua callbackFn) pelo javascript (não pelo user).
+      // Isso é a fase de Bubble.
+      // Vai até o 'window' que é o elemento máximo. Cadeia:
+      // window<-->document<-->documentElement(html)<-->body<-->HTMLElement
+  // Enquanto o site estiver ativo, a Web Api preserva o encadeamento (o conteúdo)
+  // das variáveis e das funções permanecem na memória.
+  
