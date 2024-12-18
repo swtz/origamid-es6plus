@@ -12,5 +12,26 @@ dropdownMenus.forEach((item) => {
 
 function handleClick(event) {
   event.preventDefault();
-  this.classList.toggle('ativo');
+  this.classList.add('ativo');
+  clickOutside(this, () => {
+    this.classList.remove('ativo');
+  });
+}
+
+function clickOutside(element, callbackFn) {
+  const html = document.documentElement
+  const outside = 'data-outside';
+
+  if (!element.hasAttribute(outside)) {
+    html.addEventListener('click', handleOutsideClick);
+    element.setAttribute(outside, '');
+  }
+
+  function handleOutsideClick(event) {
+    if (!element.contains(event.target)) {
+      element.removeAttribute(outside);
+      callbackFn();
+      html.removeEventListener('click', handleOutsideClick);
+    }
+  }
 }
