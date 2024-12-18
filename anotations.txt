@@ -7,4 +7,8 @@
 // 3rd: estilização
 // 4h: javascript
   // 4.1: selecionar botões e section que representa o container do modal
-  // 4.2: 
+  // 4.2: criar 3 funções (abrir, fechar e clickOutside)
+    // 4.2.1: ao desenvolver a fn clickOutside, checar o valor de this
+// 5th: iniciar função no script principal
+// 6th: otimizar as funções abrir/fechar em uma só usando 
+// HTMLElement.classList.toggle
