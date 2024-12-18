@@ -1,30 +1,40 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0504 | Tooltip
+// AULA 0504 | Menu Dropdown
 
-// A criação do 'tooltip' é dinâmica
-// Após a estilização, é necessário obter a posição do cursor em relação à page
+// É possível fazer o 'dropdown-menu' somente com css, mas isso
+// se torna um problema no mobile
 
-// nome do eventListener: 'mouseover' | retorno do event: [object MouseEvent]
-// Nesse objeto, existem as props pageX e pageY que indicam a posição do cursor
-// em relação à page
+// Para criar um triângulo no css:
+`
+.triangulo-vermelho::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -10px;
+  width: 0px;
+  height: 0px;
+  border-bottom: 10px solid #E54;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+`
 
-// Agora, por meio do javascript, pode-se obter esses valores e
-// alinhar o 'tooltip' ao posicionamento do cursor
-// HTMLElement.style retorna um objeto onde é possível manipular qualquer
-// style do elemento, tais como 'top' e 'left' do 'tooltip'
+// ficar atento ao 'gap' entre o menu e o sub-menu | pode ser resolvido
+// ajustando a propriedade top do .dropdown-menu
 
-// nome do eventListener 'mouseleave' | permite disparar uma quando o cursor
-// 'deixar' o elemento.
+// após terminar o css (o dropdown fica pronto para pc users com :hover)
+// será usado o javascript para que o pessoal do mobile consiga usar
 
-// HTMLElement.addEventListener('event', {}) | suporta um objeto, porém
-// esse objeto precisar ter a fn 'handleEvent' que é disparada pelo eventListener;
-// é útil para deixar o código mais organizado.
+// Tip for mobile: eventListener 'touchstart' dispara o evento de "click" na hora
+// caso o dev use 'click', no ambiente mobile, o evento de "click" demora 300ms
+// para ocorrer
 
-// É uma boa prática remover o eventListener 'mouseleave' ao remover o 'tooltip'
+// para add vários eventos em 1 (ou mais) elementos:
+NodeList.forEach((HTMLElement) => {
+  ['touchstart', 'click'].forEach(userEvent => {
+    HTMLElement.addEventListener(userEvent, handleClick)
+  })
+});
 
-// nome do eventListener: 'mousemove' | esse event é adicionado ao elemento
-// que cria o 'tooltip' e o 'callback-object' atualiza o 'top/left' do 'tooltip'
-// segundo a posição do cursor em tempo real.
-
-// É uma boa prática remover o eventListener 'mousemove' ao remover o 'tooltip'
+// depois, basta desenvolver a fn handleClick
