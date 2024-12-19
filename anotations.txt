@@ -48,3 +48,25 @@ function handleClick() {
 // arrow function -> usa o this do objeto pai, ou seja, o this
 // do método 'handleClick' que é o elemento 'btn'. Assim, 'classList.add'
 // existe nesse objeto.
+
+// setInterval(callbackFn, timeout, arg1, arg2, argN): number
+// Porém, 'setInterval' executa a 'callbackFn' de forma repetida
+// com base no 'timeout' definido. Tem o comportamento de um 'loop'.
+
+// É possível parar a execução do 'setInterval' com a função 'clearInterval'.
+// Entretanto é necessário armazenar o retorno do 'setInterval' em uma variável.
+// Exemplo de uso:
+
+let i = 0;
+const until10 = setInterval(callbackFn, 300);
+
+function callbackFn() {
+  console.log(i++);
+  if (i > 10) {
+    clearInterval(until10);
+    console.log('This is the end');
+  }
+}
+
+// 'clearInterval' retira o 'setInterval' da Web Api. Logo, 'setInterval'
+// não vai para a 'Callback Queue' e consequentemente não vai para a 'Call Stack'.
