@@ -1,28 +1,50 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0507 | ClickOutside
+// AULA 0507 | setTimeout e setInterval
 
-// Essa aula mostra algumas técnicas de evitar que
-// o Event Bubble dispare a callbackFn do evento
-// de modo direto. São criadas condicionais para controlar a
-// execução dessa callbackFn
+setTimeout((text) => {
+  console.log(text);
+}, 2000, 'Passou 2s')
 
-// HTMLElement.contains(<HTMLElement>): boolean
-// ao chamar a callbackFn (que remove a classe 'ativo' do dropdown-menu)
-// deve-se remover o event 'click' para fins de otimização
+// setTimeout(callbackFn, timeout, arg1, arg2, argN): number
 
-// é possível adicionar somente 1 evento 'click' no 'html', pois
-// esse evento é adicionado toda vez que o user clicar no dropdown-menu
+// Resgatando o conteúdo aprendido na aula 'Event Bubble',
+// ao executar um determinado script que contém um setTimeout SEM TEMPO,
+// é colocado na Web Api a 'callbackFn' com o 'timeout'
 
-if (!HTMLElement.hasAttribute('data-outside')) {
-  html.addEventListener('click', handleOutsideClick);
-  element.setAttribute('data-outside', '');
+// Web Api: time<-->callbackFn
+
+// Como o tempo é indefinido, a 'callbackFn' é colocada na Callback Queue na hora
+// Enquanto isso, o script é executado normalmente
+
+// Após o término do script, a Call Stack é esvaziada e a Callback Queue é verificada
+// pelo Event Loop. Se houver algo na Callback Queue, ele é colocado na Call Stack e
+// é executado logo em seguida.
+
+// #!important
+const btn = document.querySelector('button');
+btn.addEventListener('click', handleClick);
+
+// # function
+function handleClick() {
+  setTimeout(function () {
+    console.log(this);
+    this.classList.add('ativo');
+  }, 1000);
 }
 
-// Essa condicional garante que o evento 'click' seja adicionado somente
-// 1 vez no 'html'
+// # arrow function
+function handleClick() {
+  setTimeout(() => {
+    console.log(this);
+    this.classList.add('ativo');
+  }, 1000);
+}
 
-// É preciso remover esse attr junto com a remoção da classe que ativa o dropdown-menu,
-// para que possa ser adicionado o evento 'click' novamente no 'html' (linha 18 do code acima).
+// function -> usa o this do escopo onde foi criada, ou seja,
+// como o 'setTimeout' é uma função do objeto 'window', o this
+// é o objeto 'window'. Logo, 'classList.add' não existe nesse objeto.
 
-// A função clickOutside foi transformada em um módulo, pois pode ser reutilizada.
+// arrow function -> usa o this do objeto pai, ou seja, o this
+// do método 'handleClick' que é o elemento 'btn'. Assim, 'classList.add'
+// existe nesse objeto.
