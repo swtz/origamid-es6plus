@@ -24,3 +24,5 @@ if (!HTMLElement.hasAttribute('data-outside')) {
 
 // É preciso remover esse attr junto com a remoção da classe que ativa o dropdown-menu,
 // para que possa ser adicionado o evento 'click' novamente no 'html' (linha 18 do code acima).
+
+// A função clickOutside foi transformada em um módulo, pois pode ser reutilizada.
