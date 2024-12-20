@@ -17,3 +17,22 @@ button::before {
 // Lembrando que é preciso fazer alguns ajustes no 'button' propriamente
 // dito.
 
+// É necessário fazer um ajuste no módulo 'click-outside.js', mais uma
+// vez, para escapar do efeito colateral causado pela fase de Bubble.
+// O ajuste é feito na parte do código onde é adicionado o 'eventListener'
+// no 'html'
+
+setTimeout(() => { html.addEventListener(ev, handleOutsideClick) });
+// o evento é adicionado DEPOIS da fase de Bubble
+
+// A lógica do módulo envolve uma condicional que verifica se o 'click'
+// foi dentro do 'element' (primeiro parâmetro da função clickOutside).
+// Porém, o botão 'sanduíche' FICA FORA do 'element'. Assim, a fase
+// de Bubble dispara a callbackFn de imediato.
+
+// Por isso, foi usado o async method 'setTimeout', pois, pela sua natureza,
+// ele é executado APÓS A FASE DE BUBBLE, ou seja, o evento é adicionado
+// DEPOIS da fase de Bubble. 
+
+// Fica evidente a necessidade de entender o funcionamento interno do
+// Javascript.
