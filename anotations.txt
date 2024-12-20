@@ -1,4 +1,19 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0508 | setTimeout e setInterval
+// AULA 0509 | Menu Mobile
+
+// Dica para criar botão estilo 'sanduíche' no css:
+`
+button::before {
+  margin-right: 4px;
+  content: '';
+  display: inline-block;
+  height: 2px;
+  width: 12px;
+  background: #fff;
+  box-shadow: 0 4px #fff, 0 -4px #fff;
+}
+`
+// Lembrando que é preciso fazer alguns ajustes no 'button' propriamente
+// dito.
 
