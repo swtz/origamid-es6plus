@@ -1,38 +1,35 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0509 | Menu Mobile
+// AULA 0510 | Anima Números
 
-// Dica para criar botão estilo 'sanduíche' no css:
-`
-button::before {
-  margin-right: 4px;
-  content: '';
-  display: inline-block;
-  height: 2px;
-  width: 12px;
-  background: #fff;
-  box-shadow: 0 4px #fff, 0 -4px #fff;
+// Foi usado setInterval para fazer a animação.
+
+// Será usado o padrão 'Mutation Observer' para ativar o método
+// que anima os números quando a 'section' deles receber
+// a classe 'ativo' por meio de um evento já implementado
+// nesse projeto, que é o 'scroll'
+
+const observer = new MutationObserver(handleMutation);
+// recebe uma callbackFn no arg0
+
+observer.observe(observeTarget);
+// recebe um objeto do tipo 'Node' no arg0
+
+observer.observe(observeTarget, { attributes: true });
+// recebe um 'config-object' no arg1
+// nesse caso, observará alguma mutação num dos atributos
+// do 'observeTarget'
+
+function callbackFn(mutation) {
+  console.log(mutation);
 }
-`
-// Lembrando que é preciso fazer alguns ajustes no 'button' propriamente
-// dito.
+// a callbackFn possui um param especial
+// retorna um objeto do tipo 'Mutation Record'
+// que contém todas as mutações ocorridas no 'observeTarget'
+// Nesse exemplo, observará apenas as mudanças nos attr's
 
-// É necessário fazer um ajuste no módulo 'click-outside.js', mais uma
-// vez, para escapar do efeito colateral causado pela fase de Bubble.
-// O ajuste é feito na parte do código onde é adicionado o 'eventListener'
-// no 'html'
+observer.disconnect();
+// Nessa callbackFn, é possível desconectar o observer, a fim
+// de que seja executado apenas 1 vez quando ele detectar a mutação
 
-setTimeout(() => { html.addEventListener(ev, handleOutsideClick) });
-// o evento é adicionado DEPOIS da fase de Bubble
-
-// A lógica do módulo envolve uma condicional que verifica se o 'click'
-// foi dentro do 'element' (primeiro parâmetro da função clickOutside).
-// Porém, o botão 'sanduíche' FICA FORA do 'element'. Assim, a fase
-// de Bubble dispara a callbackFn de imediato.
-
-// Por isso, foi usado o async method 'setTimeout', pois, pela sua natureza,
-// ele é executado APÓS A FASE DE BUBBLE, ou seja, o evento é adicionado
-// DEPOIS da fase de Bubble. 
-
-// Fica evidente a necessidade de entender o funcionamento interno do
-// Javascript.
+// não esquecer da responsividade XD
