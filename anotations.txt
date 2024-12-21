@@ -1,35 +1,30 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0510 | Anima Números
+// AULA 0510 | Date Object
 
-// Foi usado setInterval para fazer a animação.
+const now = new Date(); // [object Date]
 
-// Será usado o padrão 'Mutation Observer' para ativar o método
-// que anima os números quando a 'section' deles receber
-// a classe 'ativo' por meio de um evento já implementado
-// nesse projeto, que é o 'scroll'
+// #!important | os métodos contam do 0 | SEG = 0 | JAN = 0
 
-const observer = new MutationObserver(handleMutation);
-// recebe uma callbackFn no arg0
+now // Sat Dec 21 2024 09:26:53 GMT-0300 (Horário Padrão de Brasília)
+now.getDate() // 21
+now.getDay() // 6
 
-observer.observe(observeTarget);
-// recebe um objeto do tipo 'Node' no arg0
+const soon = new Date('Feb 8 2025 21:00:00');
+// Sat Feb 08 2025 21:00:00 GMT-0300 (Horário Padrão de Brasília)
 
-observer.observe(observeTarget, { attributes: true });
-// recebe um 'config-object' no arg1
-// nesse caso, observará alguma mutação num dos atributos
-// do 'observeTarget'
+function convertMsToDay(time) {
+  return (time / 1000 / 60 / 60 / 24);
+  // return time / (24 * 60 * 60 * 1000);
+} // função que transforma milissegundos em dias
 
-function callbackFn(mutation) {
-  console.log(mutation);
-}
-// a callbackFn possui um param especial
-// retorna um objeto do tipo 'Mutation Record'
-// que contém todas as mutações ocorridas no 'observeTarget'
-// Nesse exemplo, observará apenas as mudanças nos attr's
+// O principal objetivo do 'timestamp' é que ele facilita
+// a comparação de horários
 
-observer.disconnect();
-// Nessa callbackFn, é possível desconectar o observer, a fim
-// de que seja executado apenas 1 vez quando ele detectar a mutação
+// Math tip: para transformar de milissegundos para hora, bata retirar o '24'
+// do cálculo XD
 
-// não esquecer da responsividade XD
+// Javascript tip:
+['1', '2', '3', '4', '5'].map(Number); // number[]
+
+// coach-andre tip: search about Unix Time.
