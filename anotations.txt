@@ -1,29 +1,28 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0512 | Forms | Validação
-<form>
-  <input type="text" name="nome" id="nome" required />
-  <input type="email" name="email" id="email" required />
-</form>
+// AULA 0513/0514 | Button Creator
 
-target.checkValidity(); // boolean
-target.setCustomValidity('custom msg') // alterar msg padrão (all fields)
-form.nome.setCustomValidity('custom msg for name field') // (selected field)
-target.validationMessage; // mensagem de erro
-
-// input do tipo 'date', 'color' usam interfaces nativas do OS para
-// manipulação dos valores de entrada
-
-// tipo 'checkbox' aceita mais de um valor
-// tipo 'radio' aceita um valor por vez, entretanto é preciso
-// agrupá-los por passar o mesmo nome no attr 'name' deles.
-// Se o attr 'value' estiver omitido, retorna 'on'.
-// Ambos, quando selecionados, possuem o attr 'checked'.
-
-// Dica para capturar todos os dados de um formulário e atribuir os
-// valores a um objeto vazio:
-const formObject = {};
+// Abaixo, uma dica de como executar uma função de maneira dinâmica
+// com o operador de acesso '[]'
+/*
 function handleChange(event) {
-  formObject[event.target.name] = event.target.value;
+  const name = event.target.name;
+  const value = event.target.value;
+
+  handleStyle[name](value); // #!important
 }
-form.addEventListener('change', handleChange);
+
+const handleStyle = {
+  backgroundColor(value) {
+    HTMLElement.style.backgroundColor = value;
+  },
+  height(value) {
+    HTMLElement.style.height = `${ value } px`;
+  },
+  width(value) {
+    HTMLElement.style.width = `${ value } px`;
+  }
+}
+
+HTMLElement.addEventListener('change', handleChange);
+*/
