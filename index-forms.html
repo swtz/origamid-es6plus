@@ -35,25 +35,32 @@
     textarea {
       height: 150px;
     }
+
+    .invalid {
+      border-color: red;
+    }
   </style>
 
 
   <form nome="contato" id="contato">
     <label for="nome">Nome</label>
-    <input type="text" name="nome" id="nome">
+    <input type="text" name="nome" id="nome" required>
+    <span class="error"></span>
     <label for="email">Email</label>
-    <input type="email" name="email" id="email">
+    <input type="email" name="email" id="email" required>
+    <span class="error"></span>
     <label for="mensagem">Mensagem</label>
     <textarea name="mensagem" id="mensagem"></textarea>
   </form>
 
   <script>
     const form = document.forms.contato;
+    const formElements = form.elements;
+    const formObject = {};
     function handleChange(event) {
-      const value = event.target.value;
-      console.log(value);
-    }
+      formObject[event.target.name] = event.target.value;
 
+    }
     form.addEventListener('change', handleChange);
 
   </script>

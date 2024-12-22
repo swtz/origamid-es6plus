@@ -1,56 +1,29 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0512 | Forms
-
-document.forms
-  // retorna uma HTMLCollection com todos as tags <form></form> do document
-  // é uma maneira mais rápida de acessar os forms
-  // é possível acessar pelo 'index' ou pelo attr 'name' e/ou 'id'
-  // recomenda-se colocar o mesmo valor para 'name' e 'id'
-
-  // Abaixo, como criar um form bem simples:
-  `
-<style>
-  label {
-    display: block;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    margin-bottom: .5rem;
-    margin-top: 1rem;
-  }
-
-  form {
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  input,
-  textarea {
-    width: 100%;
-    box-sizing: border-box;
-    padding: .5rem;
-    border: 2px solid #000;
-    margin-bottom: .5rem;
-  }
-
-  textarea {
-    height: 150px;
-  }
-</style>
-
-<form nome="contato" id="contato">
-  <label for="nome">Nome</label>
-  <input type="text" name="nome" id="nome">
-  <label for="email">Email</label>
-  <input type="email" name="email" id="email">
-  <label for="mensagem">Mensagem</label>
-  <textarea name="mensagem" id="mensagem"></textarea>
+// AULA 0512 | Forms | Validação
+<form>
+  <input type="text" name="nome" id="nome" required />
+  <input type="email" name="email" id="email" required />
 </form>
-`
 
-document.forms[0].elements
-// retorna o 1st form e seus elementos interno
-// Entretanto, ele retorna apenas elementos que 'capturam' entradas
-// como <input> e <textarea></textarea> por exemplo
+target.checkValidity(); // boolean
+target.setCustomValidity('custom msg') // alterar msg padrão (all fields)
+form.nome.setCustomValidity('custom msg for name field') // (selected field)
+target.validationMessage; // mensagem de erro
 
-// eventListener 'change' é disparado quando o usuário troca de campo
+// input do tipo 'date', 'color' usam interfaces nativas do OS para
+// manipulação dos valores de entrada
+
+// tipo 'checkbox' aceita mais de um valor
+// tipo 'radio' aceita um valor por vez, entretanto é preciso
+// agrupá-los por passar o mesmo nome no attr 'name' deles.
+// Se o attr 'value' estiver omitido, retorna 'on'.
+// Ambos, quando selecionados, possuem o attr 'checked'.
+
+// Dica para capturar todos os dados de um formulário e atribuir os
+// valores a um objeto vazio:
+const formObject = {};
+function handleChange(event) {
+  formObject[event.target.name] = event.target.value;
+}
+form.addEventListener('change', handleChange);
