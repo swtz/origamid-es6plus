@@ -1,28 +1,17 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0513/0514 | Button Creator
+// AULA 0515 | Local Storage
 
-// Abaixo, uma dica de como executar uma função de maneira dinâmica
-// com o operador de acesso '[]'
-/*
-function handleChange(event) {
-  const name = event.target.name;
-  const value = event.target.value;
+// -> Session Storage armazena dados enquanto o browser estiver aberto
+// -> Local Storage armazena dados na máquina, ou seja, persiste mesmo
+// quando o browser é fechado
 
-  handleStyle[name](value); // #!important
-}
+// -> Cookies é uma outra maneira de salvar dados do usuário
 
-const handleStyle = {
-  backgroundColor(value) {
-    HTMLElement.style.backgroundColor = value;
-  },
-  height(value) {
-    HTMLElement.style.height = `${ value } px`;
-  },
-  width(value) {
-    HTMLElement.style.width = `${ value } px`;
-  }
-}
+// Nessa aula também foi reforçada a técnica de "ativar uma função pelo nome dela".
+// Isso é possível por meio do '[]' | object[<function-name>](arg0, arg1, argN);
 
-HTMLElement.addEventListener('change', handleChange);
-*/
+// Esses tipos de armazenamento são úteis para preservar dados que
+  // (1) não têm necessidade de serem salvos numa base de dados
+  // (2) que são úteis para o 'usuário' e não para o 'programador'
+ 
