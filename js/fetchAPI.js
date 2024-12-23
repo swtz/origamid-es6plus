@@ -1,14 +1,55 @@
-const data = fetch('https://www.outlook.com');
-// const dataAllowed = fetch('https://viacep.com.br/ws/01001000/json/');
+// #1
+const form = document.querySelector('#cepform');
+const btn = form.querySelector('button');
+const div = document.querySelector('[data-show]');
+btn.addEventListener('click', handleClick);
 
-data.then(response => {
-  console.log(response.type);
-  /* 
-  [on console]:
-    Access to fetch at 'https://www.outlook.com/' from origin 'http://127.0.0.1:5500' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+function handleClick(event) {
+  event.preventDefault();
+  const inputValue = form.cep.value;
+  const cep = fetch(`https://viacep.com.br/ws/${inputValue}/json/`);
+  cep.then(response => response.text().then(result => {
+    div.innerText = result;
+  })
+  )
+}
 
-    Isso significa que o endereço não permite que seja acessado seu conteúdo.
-    É diferente no caso do endereço da variável 'dataAllowed' que é uma
-    API que permite o acesso de um servidor externo ao dele.
-  */
-})
+// #2
+// const span = div.querySelector('span');
+
+// setInterval(() => {
+//   const bitcoin = fetch('https://blockchain.info/ticker')
+
+
+//   bitcoin.then(response => response.json().then(result => {
+//     getBitcoinPrice(result);
+//   }))
+// }, 1000)
+
+// let i = 0;
+
+// function getBitcoinPrice(result) {
+//   const brl = result.BRL;
+//   const buyPrice = brl.buy;
+//   const cleanPrice = buyPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+//   span.innerText = cleanPrice;
+//   const p = document.createElement('p');
+//   p.innerText = i++ + 'seg';
+//   span.appendChild(p);
+// }
+
+
+// #3
+// const h3 = div.querySelector('h3');
+// const next = div.querySelector('button');
+// next.addEventListener('click', handleClick);
+
+// function handleClick() {
+//   const data = fetch('https://api.chucknorris.io/jokes/random');
+//   data.then(response => response.json().then(result => {
+//     const piada = result.value;
+//     h3.innerText = piada;
+//   }))
+// }
+
+// next.click();
