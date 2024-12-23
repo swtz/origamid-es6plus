@@ -1,17 +1,69 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
 
-// AULA 0515 | Local Storage
+// AULA 0601 | Javascript Assíncrono | Promises
 
-// -> Session Storage armazena dados enquanto o browser estiver aberto
-// -> Local Storage armazena dados na máquina, ou seja, persiste mesmo
-// quando o browser é fechado
+// Os métodos assíncronos não travam o script, pois
+// são carregados no fundo
 
-// -> Cookies é uma outra maneira de salvar dados do usuário
+// Outra vantagem é o acionamento de funções
+// quando o script termina
 
-// Nessa aula também foi reforçada a técnica de "ativar uma função pelo nome dela".
-// Isso é possível por meio do '[]' | object[<function-name>](arg0, arg1, argN);
+// Com métodos async é possível fazer requisições
+// sem ter de recarregar a página
 
-// Esses tipos de armazenamento são úteis para preservar dados que
-  // (1) não têm necessidade de serem salvos numa base de dados
-  // (2) que são úteis para o 'usuário' e não para o 'programador'
- 
+
+// O constructor 'Promise' recebe uma callbackFn no arg0
+// Essa fn possui 2 special params que também são 2 fn
+// Quando resolve() é acionada, a Promise fica com o estado de
+// 'fulfilled'. Isso quer dizer que a Promise foi aceita.
+// Caso seja acionada a fn reject(), ele vai lançar um erro
+// no console. É possível customizar a mensagem de erro e
+// capturá-lo também.
+// Vale lembrar que o conteúdo de dentro de resolve() se torna
+// o valor da Promise caso essa seja aceita (ler abaixo).
+
+const promise = new Promise((resolve, reject) => {
+  const condition = true;
+  if (condition) {
+    setTimeout(() => {
+      resolve('Argumento da função de callback!');
+    }, 1000)
+  } else {
+    reject(Error('Rejeitada!'));
+  }
+})
+
+// O valor de resolve() se torna o argumento da callbackFn que é
+// o arg0 do método .then | Promise.prototype.then(callbackFn(arg0));
+
+// Esse método é especial, pois a callbackfn só é disparada caso a Promise
+// tenha o status de 'fulfilled'
+
+promise.then(result => console.log(result));
+
+// .then() retorna uma Promise; logo, é possível encadeá-los
+promise.then(result => {
+  return { ...result, age: 25 }
+})
+  .then(result => console.log(result))
+  .catch(error => console.log(error))
+
+// .catch() funciona de modo parecido, porém é acionado
+// quando a Promise possui status de 'rejected'
+// a arg0 desse método também é o valor da função reject()
+
+// É possível passar um Error como arg1 do método .then(callbackFn, callbackFn)
+// arg0 -> Promise<fulfilled> | arg1 -> Promise<rejected>
+
+// .finally(callbackFn) é disparado SEMPRE ao término da Promise
+
+// Enquanto a Promise não for resolvida, ela fica com o status de <pending>
+
+const allResolved = Promise.all([Promise1, Promise2, Promise3]);
+// Acima, esse o método .all() retorna uma Promise quando todas as Promises
+// contidas no array possuírem o status de 'fulfilled'
+
+const firstResolved = Promise.race([Promise1, Promise2, Promise3]);
+// Acima, .race() retorna uma Promise quando a primeira possuir o status
+// de 'fulfilled'. O arg0 da callbackFn do .then() é o resultado dessa Promise
+// resolvida.
