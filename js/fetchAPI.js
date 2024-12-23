@@ -1,27 +1,14 @@
-// const cep = fetch('https://viacep.com.br/ws/01001000/json/');
-// cep.then(response => response.json()).then(body => {
-//   const content = document.querySelector('.content');
-//   Object.entries(body).forEach((item, index, array) => {
-//     const arr = array[index];
-//     const title = arr[0];
-//     const description = arr[1];
-//     console.log(title, description);
+const data = fetch('https://www.outlook.com');
+// const dataAllowed = fetch('https://viacep.com.br/ws/01001000/json/');
 
-//     const h2 = document.createElement('h2');
-//     const span = document.createElement('span');
+data.then(response => {
+  console.log(response.type);
+  /* 
+  [on console]:
+    Access to fetch at 'https://www.outlook.com/' from origin 'http://127.0.0.1:5500' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 
-//     h2.innerText = title
-//     span.innerText = description
-
-//     content.appendChild(h2);
-//     content.appendChild(span);
-//   })
-// })
-
-const about = fetch('./about.html');
-
-about.then(response => response.text())
-.then(result => {
-  const content = document.querySelector('.content');
-  content.innerHTML = result;
+    Isso significa que o endereço não permite que seja acessado seu conteúdo.
+    É diferente no caso do endereço da variável 'dataAllowed' que é uma
+    API que permite o acesso de um servidor externo ao dele.
+  */
 })
