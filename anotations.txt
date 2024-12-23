@@ -2,61 +2,6 @@
 
 // AULA 0603 | Fetch API
 
-// É possível fazer requisições de arquivos que o
-// Javascript não consegue entender como um arquivo binário
-
-const img = fetch('./wpp.jpeg');
-img.then(response => response.blob()) // .blob() retorna um objeto do tipo 'Blob'
-  .then(result => {
-    const blobUrl = URL.createObjectURL(result);
-    const imgTag = document.querySelector('img');
-    imgTag.src = blobUrl;
-  })
-
-// [object Blob] possui 2 propriedades: size e type
-// size:<tamanho-do-arquivo> | type:"image/jpeg"
-
-// A partir desse objeto é possível criar uma 'url' de acesso para ele
-// com URL.createObjectURL(object: Blob)
-// Acima, a 'url' criada é setada no atributo 'src' da tag 'img'
-// Ao abrir o browser, a imagem aparece na tela, ou seja,, foi
-// feita uma requisição para uma imagem com sucesso utilizando .blob()
-
-// É possível clonar o objeto Response. É útil para transformar o corpo
-// dessa resposta mais de uma vez:
-const data = fetch('https://viacep.com.br/ws/01001000/json/');
-data.then(response => {
-  // response.text() // response.bodyUsed = true
-  // response.json() // TypeError: Failed to execute 'json' on 'Response': body stream already read
-  // Solution
-  const cloneRes = response.clone();
-  response.text().then(result => console.log('TEXTO: ', result)); // json
-  cloneRes.json().then(json => console.log('OBJETO', json)); // javascript object
-})
-
-// Javascript tip: 
-const array = ['Leonard', 'Rodolfo', 'Osmar', 'Nelson', 'Sérgio'];
-array.forEach(console.log) // item, index, array
-
-// É possível iterar sobre os valores do cabeçalho da resposta
-response.headers.forEach(console.log);
-
-response.status() // status da requisição http
-response.url() // url da requisição
-response.type() // 'basic' -> requisição feita dentro do mesmo servidor
-// 'cors' -> requisição para outro servidor (fora do servidor da aplicação), mas que
-// é permitida
-
-const dataNotAllowed = fetch('https://www.outlook.com');
-const dataAllowed = fetch('https://viacep.com.br/ws/01001000/json/');
-dataNotAllowed.then(response => {
-  console.log(response.type);
-  /* 
-  [on console]:
-    Access to fetch at 'https://www.outlook.com/' from origin 'http://127.0.0.1:5500' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
-
-    Isso significa que o endereço não permite que seja acessado seu conteúdo.
-    É diferente no caso do endereço da variável 'dataAllowed' que é uma
-    API que permite o acesso de um servidor externo ao dele.
-  */
-})
+// JSON tip:
+// há uma extensão para chrome 'JSON Viewer' que exibe
+// documentos json de uma forma mais amigável no browser
