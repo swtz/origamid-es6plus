@@ -1,69 +1,31 @@
-// ANOTAÇÕES | ORIGAMID - ES6+ | 05 EFEITOS NO DOM
+// ANOTAÇÕES | ORIGAMID - ES6+ | 06 Async JS
 
-// AULA 0601 | Javascript Assíncrono | Promises
+// AULA 0603 | Fetch API
 
-// Os métodos assíncronos não travam o script, pois
-// são carregados no fundo
+// fetch() | permite fazer http requests
+// retorna uma Promise, ou seja, é possível encadear
+// com .then
+// o arg0 da callbackFn é um special object chamado
+// 'response'. Esse objeto possui propriedades próprias
 
-// Outra vantagem é o acionamento de funções
-// quando o script termina
+// É importante prestar atenção que o fetch() faz
+// apenas requisições http, ou seja, outros protocolos não
+// são suportados. Tem que ao menor ter um servidor local para
+// usar essa API
 
-// Com métodos async é possível fazer requisições
-// sem ter de recarregar a página
-
-
-// O constructor 'Promise' recebe uma callbackFn no arg0
-// Essa fn possui 2 special params que também são 2 fn
-// Quando resolve() é acionada, a Promise fica com o estado de
-// 'fulfilled'. Isso quer dizer que a Promise foi aceita.
-// Caso seja acionada a fn reject(), ele vai lançar um erro
-// no console. É possível customizar a mensagem de erro e
-// capturá-lo também.
-// Vale lembrar que o conteúdo de dentro de resolve() se torna
-// o valor da Promise caso essa seja aceita (ler abaixo).
-
-const promise = new Promise((resolve, reject) => {
-  const condition = true;
-  if (condition) {
-    setTimeout(() => {
-      resolve('Argumento da função de callback!');
-    }, 1000)
-  } else {
-    reject(Error('Rejeitada!'));
-  }
+const doc = fetch('https://viacep.com.br/ws/01001000/json/'); // retorna uma Promise
+doc.then(response => { // response é o special object Response
+  return response.text() // também retorna uma Promise
+}).then(body => {
+  const content = document.querySelector('.content'); // seleciona um HTMLElement
+  content.innerText = body; // insere o texto do arquivo no texto do html
 })
 
-// O valor de resolve() se torna o argumento da callbackFn que é
-// o arg0 do método .then | Promise.prototype.then(callbackFn(arg0));
+response.text() // retorna o json
+response.json() // retorna um objeto javascript
 
-// Esse método é especial, pois a callbackfn só é disparada caso a Promise
-// tenha o status de 'fulfilled'
-
-promise.then(result => console.log(result));
-
-// .then() retorna uma Promise; logo, é possível encadeá-los
-promise.then(result => {
-  return { ...result, age: 25 }
-})
-  .then(result => console.log(result))
-  .catch(error => console.log(error))
-
-// .catch() funciona de modo parecido, porém é acionado
-// quando a Promise possui status de 'rejected'
-// a arg0 desse método também é o valor da função reject()
-
-// É possível passar um Error como arg1 do método .then(callbackFn, callbackFn)
-// arg0 -> Promise<fulfilled> | arg1 -> Promise<rejected>
-
-// .finally(callbackFn) é disparado SEMPRE ao término da Promise
-
-// Enquanto a Promise não for resolvida, ela fica com o status de <pending>
-
-const allResolved = Promise.all([Promise1, Promise2, Promise3]);
-// Acima, esse o método .all() retorna uma Promise quando todas as Promises
-// contidas no array possuírem o status de 'fulfilled'
-
-const firstResolved = Promise.race([Promise1, Promise2, Promise3]);
-// Acima, .race() retorna uma Promise quando a primeira possuir o status
-// de 'fulfilled'. O arg0 da callbackFn do .then() é o resultado dessa Promise
-// resolvida.
+// O método .text() é muito útil ao lidar com arquivos de texto tais como
+// json, css, html, entre outro
+// por exemplo, é possível pegar uma página html inteira, aplicar o método .text()
+// é inserir em uma 'div' com HTMLElement.innerHTML. A partir daí, já é
+// possível manipulá-la como um DOM qualquer.
