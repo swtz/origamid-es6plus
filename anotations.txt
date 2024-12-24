@@ -1,42 +1,76 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 06 Async JS
 
-// AULA 0604 | JSON
+// AULA 0605 | API & HTTP
 
-// JSON tip:
-// há uma extensão para chrome 'JSON Viewer' que exibe
-// documentos json de uma forma mais amigável no browser
+// "Se interage com a API por meio de uma 'url' e a resposta dessa API
+// pode ser, por exemplo, um arquivo json".
 
-// JSON tips:
-const data = [
-  {
-    "name": "Leonardo",
-    "age": 25,
-    "birthday": "02/08/1999"
-  },
-  {
-    "names": ["Laura", "Andressa", "Geovana"],
-    "girls": true,
-    "genre": null
+// Nem sempre haverá uma resposta, pois uma API, ao ser acessada, pode
+// provocar um efeito tal como o de excluir alguma coisa de um banco de dados
+
+// HTTP request
+// url & method
+
+// uma requisição http é feita por meio de uma 'url'
+// default method é o GET | POST, UPDATE, DELETE, HEADER
+
+// fetch(<url>: String, <options>: Object)
+// Exemplo:
+const url = "https://jsonplaceholder.typicode.com/posts"
+const options = {
+  method: 'POST',
+  body: '{"title": "Angular"}',
+  headers: {
+    "Content-Type": "application/json; charset=utf-8"
   }
-]
+}
 
-// sempre "aspas duplas"
-// suporta como valores arrays, numbers, strings, booleans, objects and null
-// jamais colocar 'vírgula' no último item (interno e externo)
-// Acima, é um arquivo json, porém é uma array com vários objetos
+fetch(url, options)
+  .then(response => response.json())
+  .then(result => console.log(result))
 
-// JSON Object
-JSON.parse(data) // Analisa uma string e, se for parecida com um formato 'json',
-// transforma em um objeto javascript
+  // [on console]:
+  `
+  {
+    "title": "Angular",
+    "id": 101
+  }
+`
+// Para um método 'POST'
+// 1st: nome do método
+// 2nd: corpo/conteúdo da mensagem
+// 3rd: tipo do conteúdo (é informado na propriedade 'headers')
 
-JSON.stringify({ name: "Leonardo", age: 25, genre: "Male" }) // faz o inverso
-// ou seja, transforma em UMA STRING que se parece com um 'json'
+// Para puxar os 'headers' da requisição
+const option = {
+  method: 'HEAD',
+}
 
-// Local Storage tip:
-// É possível armazenar em uma das chaves uma string json completa
+fetch(url, option)
+  .then(response => response.headers.forEach(console.log))
 
-// Armazenar/Gravar
-localStorage.data = JSON.stringify(data);
+// Os 'headers' podem ser acessados somente por iteração
+// É importante prestar atenção aos métodos do prototype de 'Headers'
 
-// Recuperar/Ler
-const objConfig = JSON.parse(localStorage['data']);
+// HEADERS
+// É uma maneira do browser enviar informações para o servidor e vice-versa
+
+// https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Headers
+
+// DevTools -> Network -> <request-file> -> *right side* Headers
+
+// CORS
+// É uma forma de definir no servidor como outros servidores externos ao da aplicação
+// podem consumir recursos do site como uma imagem, por exemplo
+
+// Allow CORS: Access-Control-Allow-Origin (chrome plugin)
+// Por padrão, o browser em 'localhost' não permite obter um recurso
+// externo sem que o servidor do recurso externo possua o 'cors' habilitado
+
+// O servidor externo controla o acesso ao recursos por meio do cabeçalho
+// Access-Control-Allow-Origin.
+// O 'cors' se aplica na comunicação entre servidor & servidor também.
+// Ele oferece proteção, mas não é inviolável.
+
+// Proxy server para burlar o CORS policy do servidor externo
+// https://cors-anywhere.herokuapp.com/

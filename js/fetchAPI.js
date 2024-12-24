@@ -1,29 +1,7 @@
-// Aula 0604 | JSON
+// Aula 0605 | API & HTTP
 
-fetch('../data.json')
+const url = "https://www.jw.org"
+
+fetch(url)
   .then(response => response.text())
-  .then(result => {
-    const json = JSON.parse(result);
-    json.forEach(item => {
-      // console.log(item.aula);
-    });
-  });
-
-const data = [
-  {
-    "name": "Leonardo",
-    "age": 25,
-    "birthday": "02/08/1999"
-  },
-  {
-    "names": ["Laura", "Andressa", "Geovana"],
-    "girls": true,
-    "genre": null
-  }
-]
-
-localStorage.data = JSON.stringify(data);
-
-const dataParsed = JSON.parse(localStorage['data']);
-
-console.log(dataParsed);
+  .then(result => console.log(result))
