@@ -1,52 +1,23 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 06 Async JS
 
-// AULA 0606 | async / await
+// AULA 0607 | History API
 
-// async -> key word usada na declaração de uma função a qual
-// possui partes assíncronas e que se pretende esperar o resultado
-// dessas instruções para continuar o código.
+// Essa API permite manipular o histórico de navegação do browser
+window.history.pushState(null, null, 'sobre.html');
+// esse método altera apenas o texto da url do browser
+// Exemplo: http://127.0.0.1:5500/sobre.html
+// Ele não provoca o carregamento dessa página
 
-// await -> key word usada ANTES de um método que RETORNA UMA Promise
-// o interpretador vai esperar a resolução dessa Promise e retorna
-// o RESULTADO da mesma.
+window.addEventListener('popstate', () => {
+  console.log('teste');
+})
+// O eventListener 'popstate' só é disparado quando ocorre uma mudança
+// no 'state' da url. Isso é possível com .pushState(null, null, <url>);
 
-// Exemplo:
-async function getData() {
-  const resData = await fetch('../data.json') // retorna o objeto 'response'
-  const jsonData = await resData.json(); // transforma o json e retorna o objeto
-  // sem o 'await' o conteúdo da variável seria uma 'Promise'
-  console.log(jsonData.class)
-}
-getData();
+// Fetch API + History API
+// A combinação dessas 2 API's está presente no 'historyAPI.js'
+// Basicamente, é possível atualizar o conteúdo de uma página html
+// SEM A NECESSIDADE DE RECARREGAR A PÁGINA
 
-// then Vs. async
-// Diferença -> async possui uma sintaxe mais limpa
-
-// A sintaxe do 'async' permite tratar exceções com a sintaxe try / catch
-// Exemplo:
-function test() {
-  try {
-    const calc = 30 / 0; // return 'infinity' | >_< ES6+ XD |
-    calc = null;
-  } catch (error) {
-    console.log(error)
-  }
-}
-test();
-
-// Exemplo para caso exista 2 requisições assíncronas e que o objetivo
-// seja sincronizar o resultado delas:
-async function getData() {
-  const promiseData = fetch('../data.json') // parte mais demorada
-  const promiseCustomers = fetch('../customers.json') // parte mais demorada
-
-  const jsonData = await (await promiseData).json(); // espera a resposta
-  const jsonCustomers = await (await promiseCustomers).json(); // espera a resposta
-
-  document.body.innerText = `${jsonData.class} & ${jsonCustomers.name}`;
-}
-getData();
-
-// To remember:
-// O resultado da expressão à frente do 'await' tem ser uma 'Promise'.
-// O retorno do 'await' sempre será o 'result' dessa 'Promise'.
+// Isso pode ser útil, pois, como o conteúdo é obtido de forma dinâmica,
+// é possível adicionar animações css quando houver essa troca de conteúdo.
