@@ -1,45 +1,29 @@
-// #1
-const inputCep = document.getElementById('cep');
-const btnCep = document.querySelector('input[type="button"]');
-const resultadoCep = document.querySelector('.resultadoCep');
+// Aula 0604 | JSON
 
-btnCep.addEventListener('click', handleClick);
+fetch('../data.json')
+  .then(response => response.text())
+  .then(result => {
+    const json = JSON.parse(result);
+    json.forEach(item => {
+      // console.log(item.aula);
+    });
+  });
 
-function handleClick(event) {
-  event.preventDefault();
-  const cep = inputCep.value;
-  buscaCep(cep);
-}
+const data = [
+  {
+    "name": "Leonardo",
+    "age": 25,
+    "birthday": "02/08/1999"
+  },
+  {
+    "names": ["Laura", "Andressa", "Geovana"],
+    "girls": true,
+    "genre": null
+  }
+]
 
-function buscaCep(cep) {
-  fetch(`https://viacep.com.br/ws/${cep}/json/`)
-    .then(response => response.text())
-    .then(result => resultadoCep.innerText = result)
-}
+localStorage.data = JSON.stringify(data);
 
-// #2
-const p = document.querySelector('.btc');
+const dataParsed = JSON.parse(localStorage['data']);
 
-function fetchBtc() {
-  fetch('https://blockchain.info/ticker')
-    .then(response => response.json())
-    .then(result => {
-      const brl = result.BRL.buy.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-      p.innerText = brl;
-    })
-}
-// setInterval(fetchBtc, 30000);
-
-// #3
-const pJoke = document.querySelector('.joke');
-const btnJoke = document.querySelector('.next');
-
-btnJoke.addEventListener('click', getJoke)
-
-function getJoke() {
-  fetch('https://api.chucknorris.io/jokes/random')
-    .then(response => response.json())
-    .then(result => pJoke.innerText = result.value)
-}
-
-getJoke();
+console.log(dataParsed);

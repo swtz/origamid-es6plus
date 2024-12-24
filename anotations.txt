@@ -1,7 +1,42 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 06 Async JS
 
-// AULA 0603 | Fetch API
+// AULA 0604 | JSON
 
 // JSON tip:
 // há uma extensão para chrome 'JSON Viewer' que exibe
 // documentos json de uma forma mais amigável no browser
+
+// JSON tips:
+const data = [
+  {
+    "name": "Leonardo",
+    "age": 25,
+    "birthday": "02/08/1999"
+  },
+  {
+    "names": ["Laura", "Andressa", "Geovana"],
+    "girls": true,
+    "genre": null
+  }
+]
+
+// sempre "aspas duplas"
+// suporta como valores arrays, numbers, strings, booleans, objects and null
+// jamais colocar 'vírgula' no último item (interno e externo)
+// Acima, é um arquivo json, porém é uma array com vários objetos
+
+// JSON Object
+JSON.parse(data) // Analisa uma string e, se for parecida com um formato 'json',
+// transforma em um objeto javascript
+
+JSON.stringify({ name: "Leonardo", age: 25, genre: "Male" }) // faz o inverso
+// ou seja, transforma em UMA STRING que se parece com um 'json'
+
+// Local Storage tip:
+// É possível armazenar em uma das chaves uma string json completa
+
+// Armazenar/Gravar
+localStorage.data = JSON.stringify(data);
+
+// Recuperar/Ler
+const objConfig = JSON.parse(localStorage['data']);
