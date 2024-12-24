@@ -1,7 +1,12 @@
-// Aula 0605 | API & HTTP
+// Aula 0606 | async / await
 
-const url = "https://www.jw.org"
+async function getData() {
+  const promiseData = fetch('../data.json')
+  const promiseCustomers = fetch('../customers.json')
 
-fetch(url)
-  .then(response => response.text())
-  .then(result => console.log(result))
+  const jsonData = await (await promiseData).json();
+  const jsonCustomers = await (await promiseCustomers).json();
+
+  document.body.innerText = `${jsonData.class} & ${jsonCustomers.name}`;
+}
+getData();

@@ -1,76 +1,52 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 06 Async JS
 
-// AULA 0605 | API & HTTP
+// AULA 0606 | async / await
 
-// "Se interage com a API por meio de uma 'url' e a resposta dessa API
-// pode ser, por exemplo, um arquivo json".
+// async -> key word usada na declaração de uma função a qual
+// possui partes assíncronas e que se pretende esperar o resultado
+// dessas instruções para continuar o código.
 
-// Nem sempre haverá uma resposta, pois uma API, ao ser acessada, pode
-// provocar um efeito tal como o de excluir alguma coisa de um banco de dados
+// await -> key word usada ANTES de um método que RETORNA UMA Promise
+// o interpretador vai esperar a resolução dessa Promise e retorna
+// o RESULTADO da mesma.
 
-// HTTP request
-// url & method
-
-// uma requisição http é feita por meio de uma 'url'
-// default method é o GET | POST, UPDATE, DELETE, HEADER
-
-// fetch(<url>: String, <options>: Object)
 // Exemplo:
-const url = "https://jsonplaceholder.typicode.com/posts"
-const options = {
-  method: 'POST',
-  body: '{"title": "Angular"}',
-  headers: {
-    "Content-Type": "application/json; charset=utf-8"
+async function getData() {
+  const resData = await fetch('../data.json') // retorna o objeto 'response'
+  const jsonData = await resData.json(); // transforma o json e retorna o objeto
+  // sem o 'await' o conteúdo da variável seria uma 'Promise'
+  console.log(jsonData.class)
+}
+getData();
+
+// then Vs. async
+// Diferença -> async possui uma sintaxe mais limpa
+
+// A sintaxe do 'async' permite tratar exceções com a sintaxe try / catch
+// Exemplo:
+function test() {
+  try {
+    const calc = 30 / 0; // return 'infinity' | >_< ES6+ XD |
+    calc = null;
+  } catch (error) {
+    console.log(error)
   }
 }
+test();
 
-fetch(url, options)
-  .then(response => response.json())
-  .then(result => console.log(result))
+// Exemplo para caso exista 2 requisições assíncronas e que o objetivo
+// seja sincronizar o resultado delas:
+async function getData() {
+  const promiseData = fetch('../data.json') // parte mais demorada
+  const promiseCustomers = fetch('../customers.json') // parte mais demorada
 
-  // [on console]:
-  `
-  {
-    "title": "Angular",
-    "id": 101
-  }
-`
-// Para um método 'POST'
-// 1st: nome do método
-// 2nd: corpo/conteúdo da mensagem
-// 3rd: tipo do conteúdo (é informado na propriedade 'headers')
+  const jsonData = await (await promiseData).json(); // espera a resposta
+  const jsonCustomers = await (await promiseCustomers).json(); // espera a resposta
 
-// Para puxar os 'headers' da requisição
-const option = {
-  method: 'HEAD',
+  document.body.innerText = `${jsonData.class} & ${jsonCustomers.name}`;
 }
+getData();
 
-fetch(url, option)
-  .then(response => response.headers.forEach(console.log))
-
-// Os 'headers' podem ser acessados somente por iteração
-// É importante prestar atenção aos métodos do prototype de 'Headers'
-
-// HEADERS
-// É uma maneira do browser enviar informações para o servidor e vice-versa
-
-// https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Headers
-
-// DevTools -> Network -> <request-file> -> *right side* Headers
-
-// CORS
-// É uma forma de definir no servidor como outros servidores externos ao da aplicação
-// podem consumir recursos do site como uma imagem, por exemplo
-
-// Allow CORS: Access-Control-Allow-Origin (chrome plugin)
-// Por padrão, o browser em 'localhost' não permite obter um recurso
-// externo sem que o servidor do recurso externo possua o 'cors' habilitado
-
-// O servidor externo controla o acesso ao recursos por meio do cabeçalho
-// Access-Control-Allow-Origin.
-// O 'cors' se aplica na comunicação entre servidor & servidor também.
-// Ele oferece proteção, mas não é inviolável.
-
-// Proxy server para burlar o CORS policy do servidor externo
-// https://cors-anywhere.herokuapp.com/
+// To remember:
+// O resultado da expressão à frente do 'await' tem ser uma 'Promise'.
+// O retorno do 'await' sempre será o 'result' dessa 'Promise'.
