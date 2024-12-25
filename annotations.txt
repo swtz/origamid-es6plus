@@ -1,0 +1,12 @@
+// ANOTAÇÕES | ORIGAMID - ES6+ | 06 Async JS
+
+// AULA 0608 | Animais Fetch
+
+// Dica para substituir marcações html com menos código
+
+HTMLElement.innerHTML = `<h3>${variable}</h3>\n
+<span data-numero>${variable}</span>`;
+
+// Ora, um arquivo html é tratado como um texto. Por isso,
+// é possível fazer as tags com strings.
+// Com 'template strings' é possível colocar valores de forma dinâmica.
