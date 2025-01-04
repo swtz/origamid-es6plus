@@ -1,43 +1,34 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 07 Classes
 
-// AULA 0702 | Getters and Setters
+// AULA 0703 | Extends
 
-// No javascript, é possível ter 'setters' sem os 'getters'.
-// Porém, não é possível ter 'getters' sem os 'setters'.
-class Fruteira {
-  constructor(listaFrutas) {
-    this.lista = listaFrutas || [];
+// Abaixo, um exemplo de como o javascript simula a herança de classes com o uso de prototypes.
+// É possível herdar os métodos e propriedades da classe pai por meio da palavra chave 'extends'.
+// É possível sobrescrever métodos da classe pai na classe filha.
+// Há a palavra chave 'super' que faz referência à classe pai.
+// Por fim, é possível implementar um método construtor na classe filha, porém, deve-se
+// chamar antes o construtor da classe pai com a palavra chave 'super' passando os mesmos parâmetros.
+class Veiculo {
+  constructor(nome, rodas) {
+    this.rodas = rodas;
+    this.nome = nome;
   }
-
-  set nova(fruta) {
-    this.lista.push(fruta);
-  }
-}
-const frutas = new Fruteira();
-frutas.nova = 'Pêra'
-frutas.nova = 'Uva'
-frutas.nova = 'Laranja'
-frutas.nova = 'Banana'
-
-
-// Abaixo, um 'setter' modificando o comportamento de um 'getter'.
-class Button {
-  constructor(text, color) {
-    this.text = text;
-    this.color = color;
-  }
-
-  get element() {
-    const type = this._elementType || 'button';
-    const btnElement = document.createElement(type);
-    btnElement.innerText = this.text;
-    btnElement.style.color = this.color;
-    return btnElement;
-  }
-
-  set element(value) {
-    this._elementType = value;
+  acelerar() {
+    console.log(`${this.nome} acelerou...`);
   }
 }
-const blueBtn = new Button('Comprar', 'blue');
-blueBtn.element = 'a'; // retorna um elemento 'a' ao invés de 'button'.
+
+class Moto extends Veiculo {
+  constructor(nome, rodas, capacete) {
+    super(nome, rodas);
+    this.capacete = capacete;
+  }
+  empinar() {
+    console.log('Empinou com ' + this.rodas + ' rodas');
+  }
+  acelerar() {
+    super.acelerar();
+    console.log('Método sobrescrito!');
+  }
+}
+const honda = new Moto('Honda', 2, true);

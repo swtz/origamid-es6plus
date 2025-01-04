@@ -17,4 +17,4 @@ class Button {
   }
 }
 const blueBtn = new Button('Comprar', 'blue');
-blueBtn.element = 'a';
+blueBtn.element = 'a'
