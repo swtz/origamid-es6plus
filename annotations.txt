@@ -1,121 +1,43 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 07 Classes
 
-// AULA 0701 | Classes
+// AULA 0702 | Getters and Setters
 
-// Abaixo, uma exemplo de uma constructorFn que usa
-// as propriedades do objeto para criar um elemento.
-// Isso é possível adicionando um método ao seu prototype.
-function Button(text, background) {
-  this.text = text;
-  this.background = background;
+// No javascript, é possível ter 'setters' sem os 'getters'.
+// Porém, não é possível ter 'getters' sem os 'setters'.
+class Fruteira {
+  constructor(listaFrutas) {
+    this.lista = listaFrutas || [];
+  }
+
+  set nova(fruta) {
+    this.lista.push(fruta);
+  }
 }
-Button.prototype.element = function () {
-  const btnElement = document.createElement('button');
-  btnElement.innerText = this.text;
-  btnElement.style.background = this.background;
-  return btnElement;
-}
-const btnFn = new Button('Comprar', 'blue');
+const frutas = new Fruteira();
+frutas.nova = 'Pêra'
+frutas.nova = 'Uva'
+frutas.nova = 'Laranja'
+frutas.nova = 'Banana'
 
 
-// "Syntactical Sugar" é um termo usado para se referir
-// a uma implementação que melhora a leitura ou escrita
-// do código, mas que, por baixo dos panos, usa a mesma
-// implementação original.
-
-
-// Usando a key word 'class'
+// Abaixo, um 'setter' modificando o comportamento de um 'getter'.
 class Button {
-  constructor(text, background) {
+  constructor(text, color) {
     this.text = text;
-    this.background = background;
+    this.color = color;
   }
-  element() {
-    const btnElement = document.createElement('button');
+
+  get element() {
+    const type = this._elementType || 'button';
+    const btnElement = document.createElement(type);
     btnElement.innerText = this.text;
-    btnElement.style.background = this.background;
+    btnElement.style.color = this.color;
     return btnElement;
   }
-}
-// const btnClass = new Button('Comprar', 'blue');
 
-// Por padrão, toda função construtora retorna o 'this'
-// é possível alterar esse retorno, porém não é uma boa prática.
-class ABC {
-  constructor(args) {
-    return this; // default
+  set element(value) {
+    this._elementType = value;
   }
 }
-
-// Outro exemplo usando a key word 'this' para acessar os métodos
-// da classe na definição dela
-class Button {
-  constructor(text, background) {
-    this.text = text;
-    this.background = background;
-    return this;
-  }
-  element() {
-    const btnElement = document.createElement('button');
-    btnElement.innerText = this.text;
-    btnElement.style.background = this.background;
-    return btnElement;
-  }
-  appendTo(target) {
-    const targetElement = document.querySelector(target);
-    targetElement.appendChild(this.element());
-  }
-}
-const btnClass = new Button('Comprar', 'blue');
-btnClass.appendTo('body'); // btn inserido no HTML do 'body'
-
-
-// Como toda classe, é possível criar métodos estáticos
-class Button {
-  constructor(options) {
-    this.options = options;
-  }
-  static createButton(text, background) {
-    const btnElement = document.createElement('button');
-    btnElement.innerText = text;
-    btnElement.style.background = background;
-    return btnElement;
-  }
-}
-const btnStatic = Button.createButton('Comprar', 'yellow');
-// Os métodos estáticos são métodos que não usufruem dos atributos
-// de instância da classe. São métodos que pertencem à função
-// construtora, e não ao objeto instanciado.
-
-
-// Final example
-class Button {
-  constructor(text, background, marginLeft) {
-    this.text = text;
-    this.background = background;
-    this.marginLeft = marginLeft;
-  }
-  static createBlueBtn(text) {
-    return new Button(text, 'blue', 0);
-  }
-  static createRedBtn(text, marginLeft) {
-    const value = `${marginLeft}px`;
-    return new Button(text, 'red', value);
-  }
-  element() {
-    const btnElement = document.createElement('button');
-    btnElement.innerText = this.text;
-    btnElement.style.background = this.background;
-    btnElement.style.marginLeft = this.marginLeft;
-    return btnElement;
-  }
-  appendTo(target) {
-    const targetElement = document.querySelector(target);
-    targetElement.appendChild(this.element());
-  }
-}
-const blueBtn = Button.createBlueBtn('Comprar');
-const redBtn = Button.createRedBtn('Vender', 10);
-
-blueBtn.appendTo('body');
-redBtn.appendTo('body');
+const blueBtn = new Button('Comprar', 'blue');
+blueBtn.element = 'a'; // retorna um elemento 'a' ao invés de 'button'.
