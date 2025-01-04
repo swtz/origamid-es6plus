@@ -1,34 +1,10 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 07 Classes
 
-// AULA 0703 | Extends
+// AULA 0704 | Countdown
 
-// Abaixo, um exemplo de como o javascript simula a herança de classes com o uso de prototypes.
-// É possível herdar os métodos e propriedades da classe pai por meio da palavra chave 'extends'.
-// É possível sobrescrever métodos da classe pai na classe filha.
-// Há a palavra chave 'super' que faz referência à classe pai.
-// Por fim, é possível implementar um método construtor na classe filha, porém, deve-se
-// chamar antes o construtor da classe pai com a palavra chave 'super' passando os mesmos parâmetros.
-class Veiculo {
-  constructor(nome, rodas) {
-    this.rodas = rodas;
-    this.nome = nome;
-  }
-  acelerar() {
-    console.log(`${this.nome} acelerou...`);
-  }
-}
+// script-countdown.js -> é o script main
+// countdown.js -> é o script que contém a classe Countdown
 
-class Moto extends Veiculo {
-  constructor(nome, rodas, capacete) {
-    super(nome, rodas);
-    this.capacete = capacete;
-  }
-  empinar() {
-    console.log('Empinou com ' + this.rodas + ' rodas');
-  }
-  acelerar() {
-    super.acelerar();
-    console.log('Método sobrescrito!');
-  }
-}
-const honda = new Moto('Honda', 2, true);
+// Foi usada matemática modular para calcular os dias, horas, minutos e segundos restantes.
+// Pode-se utilizar o objeto do tipo 'Countdown' junto com o método 'setInterval'
+// para atualizar os valores, por exemplo, a cada segundo.
