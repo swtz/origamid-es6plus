@@ -1,10 +1,49 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 07 Classes
 
-// AULA 0704 | Countdown
+// AULA 0801 | Function Expression
 
-// script-countdown.js -> é o script main
-// countdown.js -> é o script que contém a classe Countdown
+// Function Declaration
+function sum(a, b) {
+  return a + b;
+}
 
-// Foi usada matemática modular para calcular os dias, horas, minutos e segundos restantes.
-// Pode-se utilizar o objeto do tipo 'Countdown' junto com o método 'setInterval'
-// para atualizar os valores, por exemplo, a cada segundo.
+// Function Expression
+// Uma função anônima é atribuída à uma variável
+const sum = function (a, b) {
+  return a + b;
+}
+
+// Diferenças:
+// Fn declaration -> na fase de hoisting, o corpo da função é
+// alocado na memória, ou seja, é possível chamar a função linhas
+// acima da declaração dela no código. 
+
+// Fn Expression -> a variável 'sum', na fase de hoisting, é enviada
+// para a TDZ, ou seja, somente na fase de execução do código, o corpo
+// da função anônima é atribuída à ela, ou seja, só é possível chamar
+// a função LINHAS ABAIXO da sua declaração. Caso contrário, será lançada
+// uma exceção no console.
+
+
+// Function Expression com arrow function:
+const sum = (a, b) => a + b;
+const square = a => a * a;
+
+
+// Sem o uso de módulos a 'function declaration' se torna
+// parte do objeto 'window', ou seja, caso o dev crie uma função
+// cujo nome dela já exista nesse objeto, ela será sobrescrita.
+
+
+// IIFE - Immediately Invoked Function Expression
+// Também suporta a palavra chave 'function'
+const instrumento = 'Violão';
+(() => {
+  const instrumento = 'Guitarra';
+  console.log(instrumento);
+})();
+console.log(instrumento)
+// Antes dos módulos e do escopo de bloco, era a maneira utilizada para
+// isolar as variáveis dentro do escopo de uma função. Alguns compiladores
+// transformam tudo que há nos módulos em IIFE's para que o código rode
+// em browsers mais antigos.
