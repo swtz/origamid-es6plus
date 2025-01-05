@@ -1,49 +1,74 @@
-// ANOTAÇÕES | ORIGAMID - ES6+ | 07 Classes
+// ANOTAÇÕES | ORIGAMID - ES6+ | 08 Mais Javascript
 
-// AULA 0801 | Function Expression
+// AULA 0802 | Factory Function
 
-// Function Declaration
-function sum(a, b) {
-  return a + b;
+// Possuem basicamente a mesma função que
+// constructor functions / classes, ou seja,
+// são funções que retornam um objeto sem o uso
+// da key word 'new'. Isso quer dizer que os métodos
+// pertencem ao objeto em si e NÃO AO SEU PROTÓTIPO.
+
+// Por convenção, as factoryFn seguem o padrão camelCase.
+// Exemplo de factoryFn:
+function createButton(text) {
+  function element() {
+    const btnElement = document.createElement('button');
+    btnElement.innerText = text;
+    return btnElement;
+  }
+
+  return {
+    text,
+    element
+  }
+}
+const btnBlue = createButton('Comprar'); // [object Object]
+
+
+// FactoryFn permitem criar métodos e propriedades realmente privados:
+// Exemplo:
+function createNode(text) {
+  const secretWord = 'raioForteCaiuOntemFazendoGrandeEstrago';
+
+  return {
+    text,
+  }
+}
+// Somente será acessível o que está sendo retornado. Tudo que estiver
+// fora desse retorno será invisível para quem usa esse objeto. Pode
+// ser útil para métodos internos que não são úteis no objeto final.
+
+
+// Caso o dev queira 'congelar' o objeto para evitar futuras alterações
+"use strict";
+function createNode(text) {
+  return Object.freeze({
+    text,
+  })
+}
+const object = createNode('foo');
+object.text = 'bar'; // exceção é lançada no console.
+
+
+// Uma forma de instanciar um objeto sem o uso da key word 'new' usando
+// uma constructor function:
+function Pessoa(nome) {
+  if (!(this instanceof Pessoa)) // "se o usuário não passar o 'new' na frente"
+    return new Pessoa(nome); // "acessa novamente o construtor, porém, agora, com o 'new' na frente"
+  this.nome = nome // segue o código de criação do objeto
 }
 
-// Function Expression
-// Uma função anônima é atribuída à uma variável
-const sum = function (a, b) {
-  return a + b;
+Pessoa.prototype.andar = function () {
+  return `${this.nome} andou`;
 }
 
-// Diferenças:
-// Fn declaration -> na fase de hoisting, o corpo da função é
-// alocado na memória, ou seja, é possível chamar a função linhas
-// acima da declaração dela no código. 
-
-// Fn Expression -> a variável 'sum', na fase de hoisting, é enviada
-// para a TDZ, ou seja, somente na fase de execução do código, o corpo
-// da função anônima é atribuída à ela, ou seja, só é possível chamar
-// a função LINHAS ABAIXO da sua declaração. Caso contrário, será lançada
-// uma exceção no console.
+const designer = Pessoa('André');
+console.log(designer); // Pessoa: {nome: 'André'};
 
 
-// Function Expression com arrow function:
-const sum = (a, b) => a + b;
-const square = a => a * a;
+// Obs.:
+if (!(this instanceof Object)); // Verifica se o prototype de 'this' 
+// possui os métodos e propriedades do constructor 'Object'.
+// Javascript
 
-
-// Sem o uso de módulos a 'function declaration' se torna
-// parte do objeto 'window', ou seja, caso o dev crie uma função
-// cujo nome dela já exista nesse objeto, ela será sobrescrita.
-
-
-// IIFE - Immediately Invoked Function Expression
-// Também suporta a palavra chave 'function'
-const instrumento = 'Violão';
-(() => {
-  const instrumento = 'Guitarra';
-  console.log(instrumento);
-})();
-console.log(instrumento)
-// Antes dos módulos e do escopo de bloco, era a maneira utilizada para
-// isolar as variáveis dentro do escopo de uma função. Alguns compiladores
-// transformam tudo que há nos módulos em IIFE's para que o código rode
-// em browsers mais antigos.
+if (!new.target); // ES6+
