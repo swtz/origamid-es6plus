@@ -1,47 +1,62 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 08 Mais Javascript
 
-// AULA 0803 | Closures e Debugging
+// AULA 0804 | Destructuring
 
-// Só existe 'closure' quando há a relação de função pai e função filha.
-let item1 = 1;
-function funcao1() { // pai
-  let item2 = 2;
-  function funcao2() { // filha
-    let item3 = 3;
-    console.log(item1);
-    console.log(item2);
-    console.log(item3);
+// Exemplo de destructing:
+// Evita repetição de código.
+const customer = {
+  name: 'Leonard',
+  age: 25,
+  bought: {
+    digital: {
+      books: ['ABC', 'DEF', 'GHI'],
+      films: ['123', '456', '789']
+    },
+    physical: {
+      notebooks: ['XYZ']
+    }
   }
 }
-// A 'funcao2' possui 4 escopos.
-// 1st: local -> variável 'item3';
-// 2nd: CLOSURE -> escopo de função dentro de função -> variável 'item2';
-// 3rd: script -> variável 'item1';
-// 4th: global/window.
-
-// "É como se a função filha carregasse uma mochila com as variáveis da sua função pai".
-// O escopo 'Closure' é a mochila com essas variáveis.
-
-// Debugging tip:
-debugger; // palavra chave que seta um breakpoint na linha onde é declarada.
+// Abaixo, são definidas 4 variáveis: books, films, book1, book2, book3.
+const { books, films, books: [book1, book2, book3] } = customer.bought.digital;
+// Acima, é retornado o conteúdo inteiro de 'digital'.
+// books: [book1, book2, book3] -> indica que 'book1, book2, book3' não estão
+// no mesmo nível de 'books' e 'films'.
+console.log(book3); // 'GHI'
 
 
-// Exemplo de closure:
-function contagem() {
-  let total = 0;
-  return function incremento() {
-    total++;
-    console.log(total);
-  }
+// Abaixo, um exemplo de como atribuir o valor da propriedade para uma variável
+// de nome diferente:
+const cliente = {
+  nome: 'André',
+  compras: 10,
+  endereco: ['9999-999', { rua: 'Frio de Janeiro', bairro: 'Turimar' }],
 }
-const activeIncrement = contagem(); // 'activeIncrement' faz referência à função 'incremento'.
 
-activeIncrement(); // 1
-activeIncrement(); // 2
-activeIncrement(); // 3
-activeIncrement(); // 4
-// O valor de 'total' atualizado pela primeira chamada da função filha
-// é usado nas outras chamadas também, ou seja, o escopo closure é
-// que possibilita o acesso à variável atualizada da função pai.
+const [cep, logradouro] = cliente.endereco;
+const { rua: street, bairro } = logradouro;
 
-// O script 'closures-factoryFn.js' mostra o uso do escopo closure (usar debugger).
+console.log(cep, logradouro);
+console.log(street, bairro); // 'Frio de Janeiro', 'Turimar'.
+
+
+// É possível setar variáveis que não existem no objeto com um valor padrão.
+// O interpretador vai dar preferência ao valor da propriedade (caso exista)
+// do que o valor setado no 'destructing'.
+const { nome: clientName, nomeUpperCase = clientName.toUpperCase() } = cliente;
+console.log(nomeUpperCase); // 'ANDRÉ'
+
+
+// Destructuring pode ser útil para declarar diversas variáveis de uma só vez:
+const [item1, item2, item3] = ['Caderno', 'Mochila', 'Estojo'];
+
+
+// Uso comum:
+function handleKeyboard({ shiftKey, key, keyCode }) {
+  console.log(shiftKey);
+  console.log(key);
+  console.log(keyCode);
+}
+
+document.documentElement.addEventListener('keyup', handleKeyboard);
+// É desestruturado o objeto que contém as propriedades do eventListener.
