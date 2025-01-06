@@ -1,11 +1,50 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 08 Mais Javascript
 
-// AULA 0804 | Destructuring (Exercises)
+// AULA 0805 | Rest e Spread
 
-HTMLElement.style; // retorna um objeto que contém os styles do element.
-// Entretanto, ele não captura os styles atuais do element. 
-// É útil para adicionar styles pelo javascript.
+// Para definir um valor padrão de um parâmetro:
+// É útil pra quando não se usa um dos parâmetros de uma função.
+function perimetroForma(total, totalLados = 4) {
+  return total * totalLados;
+}
+console.log(perimetroForma(10)) // 40
 
-window.getComputedStyle(HTMLElement); // retorna um objeto que contém
-// os styles atuais do element; inclusive os valores padrões das propriedades
-// css não definidas.
+
+// key word -> arguments
+// usada dentro do corpo da função
+// retorna um array-like contendo em cada index
+// os argumentos passados para a função
+// é possível converter para um 'array' e
+// iterar sobre esses valores.
+
+// Rest operator -> function funcName(...argList){}
+// "Empacota" os N argumentos passados na chamada da função em uma 'array'.
+// É possível ter somente 1 parâmetro desse tipo por função.
+// Preferencialmente, é usado por último, pois é possível passar outros parâmetros
+// a serem utilizados na função na frente desse operador.
+// Exemplo:
+function showConsole(name, age, ...argList) {
+  argList.forEach(arg => {
+    console.log(arg); // [object Array] | somente "o resto" dos argumentos
+    console.log(arguments); // array-like | todos os argumentos da função
+  })
+  return `Nome: ${name} | Idade: ${age}`;
+}
+showConsole('Leonard', 25, { genre: true, pretty: false });
+
+
+// Spread operador -> const list = [...data: Iterable];
+// Esse operador "distribui" ou "desempacota" os itens do iterável 
+// dentro de uma estrutura do tipo array [] ou object {}.
+// Exemplo:
+const frutas = ['Banana', 'Uva', 'Morango'];
+const legumes = ['Cenoura', 'Batata'];
+
+const comidas = [{ ...frutas }, 'Couve-flor', ...legumes];
+console.log(comidas);
+
+
+// Exemplo de como converter um array-like em array com '...'
+const btns = document.querySelectorAll('button');
+const arrbtns = [...btns];
+console.log(arrbtns); // [object Array]
