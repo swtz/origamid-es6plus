@@ -1,62 +1,11 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 08 Mais Javascript
 
-// AULA 0804 | Destructuring
+// AULA 0804 | Destructuring (Exercises)
 
-// Exemplo de destructing:
-// Evita repetição de código.
-const customer = {
-  name: 'Leonard',
-  age: 25,
-  bought: {
-    digital: {
-      books: ['ABC', 'DEF', 'GHI'],
-      films: ['123', '456', '789']
-    },
-    physical: {
-      notebooks: ['XYZ']
-    }
-  }
-}
-// Abaixo, são definidas 4 variáveis: books, films, book1, book2, book3.
-const { books, films, books: [book1, book2, book3] } = customer.bought.digital;
-// Acima, é retornado o conteúdo inteiro de 'digital'.
-// books: [book1, book2, book3] -> indica que 'book1, book2, book3' não estão
-// no mesmo nível de 'books' e 'films'.
-console.log(book3); // 'GHI'
+HTMLElement.style; // retorna um objeto que contém os styles do element.
+// Entretanto, ele não captura os styles atuais do element. 
+// É útil para adicionar styles pelo javascript.
 
-
-// Abaixo, um exemplo de como atribuir o valor da propriedade para uma variável
-// de nome diferente:
-const cliente = {
-  nome: 'André',
-  compras: 10,
-  endereco: ['9999-999', { rua: 'Frio de Janeiro', bairro: 'Turimar' }],
-}
-
-const [cep, logradouro] = cliente.endereco;
-const { rua: street, bairro } = logradouro;
-
-console.log(cep, logradouro);
-console.log(street, bairro); // 'Frio de Janeiro', 'Turimar'.
-
-
-// É possível setar variáveis que não existem no objeto com um valor padrão.
-// O interpretador vai dar preferência ao valor da propriedade (caso exista)
-// do que o valor setado no 'destructing'.
-const { nome: clientName, nomeUpperCase = clientName.toUpperCase() } = cliente;
-console.log(nomeUpperCase); // 'ANDRÉ'
-
-
-// Destructuring pode ser útil para declarar diversas variáveis de uma só vez:
-const [item1, item2, item3] = ['Caderno', 'Mochila', 'Estojo'];
-
-
-// Uso comum:
-function handleKeyboard({ shiftKey, key, keyCode }) {
-  console.log(shiftKey);
-  console.log(key);
-  console.log(keyCode);
-}
-
-document.documentElement.addEventListener('keyup', handleKeyboard);
-// É desestruturado o objeto que contém as propriedades do eventListener.
+window.getComputedStyle(HTMLElement); // retorna um objeto que contém
+// os styles atuais do element; inclusive os valores padrões das propriedades
+// css não definidas.
