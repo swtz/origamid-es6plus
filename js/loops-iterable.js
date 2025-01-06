@@ -1,36 +1,17 @@
-// fetch('https://pokeapi.co/api/v2/pokemon/')
-//   .then(({ headers }) => console.log(headers));
+// #1
+const liList = document.querySelectorAll('li');
 
-const frutas = ['Banana', 'Morango', 'Uva'];
-const frase = 'Isso é JavaScript';
-for (const fruta of frutas) {
-  // console.log(fruta);
+for (const li of liList) {
+  li.classList.add('active');
 }
 
-const btns = document.querySelectorAll('button');
-for (const btn of btns) {
-  btn.style.backgroundColor = 'aqua';
-}
+// #2
+// const windowProps = Object.getOwnPropertyNames(window);
+// for (const key in windowProps) {
+//   const propName = windowProps[key];
+//   console.log(window[propName]);
+// }
 
-const pessoa = {
-  nome: 'Leonard',
-  idade: 25
+for (const key in window) {
+  console.log(`${key}: ${window[key]}`);
 }
-for (const key in pessoa) {
-  console.log(pessoa[key])
-  // 'key' retorna as chaves ENUMERÁVEIS do objeto
-  // e que não sejam símbolos.
-}
-
-
-const btn = document.querySelector('button');
-const btnStyles = getComputedStyle(btn);
-for (const style in btnStyles) {
-  // console.log(`${style}: ${btnStyles[style]}`);
-}
-
-// loop: do / while
-let i = 0;
-do {
-  console.log(i++)
-} while (i < 10);
