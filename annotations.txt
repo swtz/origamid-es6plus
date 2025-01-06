@@ -1,50 +1,44 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 08 Mais Javascript
 
-// AULA 0805 | Rest e Spread
+// AULA 0806 | Loops e Iterable
 
-// Para definir um valor padrão de um parâmetro:
-// É útil pra quando não se usa um dos parâmetros de uma função.
-function perimetroForma(total, totalLados = 4) {
-  return total * totalLados;
-}
-console.log(perimetroForma(10)) // 40
-
-
-// key word -> arguments
-// usada dentro do corpo da função
-// retorna um array-like contendo em cada index
-// os argumentos passados para a função
-// é possível converter para um 'array' e
-// iterar sobre esses valores.
-
-// Rest operator -> function funcName(...argList){}
-// "Empacota" os N argumentos passados na chamada da função em uma 'array'.
-// É possível ter somente 1 parâmetro desse tipo por função.
-// Preferencialmente, é usado por último, pois é possível passar outros parâmetros
-// a serem utilizados na função na frente desse operador.
-// Exemplo:
-function showConsole(name, age, ...argList) {
-  argList.forEach(arg => {
-    console.log(arg); // [object Array] | somente "o resto" dos argumentos
-    console.log(arguments); // array-like | todos os argumentos da função
-  })
-  return `Nome: ${name} | Idade: ${age}`;
-}
-showConsole('Leonard', 25, { genre: true, pretty: false });
+// Todo tipo iterável deve conter esse método 
+// (geralmente está no protótipo do tipo).
+Symbol(Symbol.iterator);
+// Esse método é quem sabe iterar sobre o tipo do dado,
+// ou seja, cada iterável possui uma implementação diferente.
 
 
-// Spread operador -> const list = [...data: Iterable];
-// Esse operador "distribui" ou "desempacota" os itens do iterável 
-// dentro de uma estrutura do tipo array [] ou object {}.
-// Exemplo:
-const frutas = ['Banana', 'Uva', 'Morango'];
-const legumes = ['Cenoura', 'Batata'];
-
-const comidas = [{ ...frutas }, 'Couve-flor', ...legumes];
-console.log(comidas);
-
-
-// Exemplo de como converter um array-like em array com '...'
+// Uma outra maneira de se fazer loop em uma 'array-like', por exemplo
+// Essa instrução somente funcionará objetos do tipo 'Iterable'
+// key word 'for' junto com 'of'.
 const btns = document.querySelectorAll('button');
-const arrbtns = [...btns];
-console.log(arrbtns); // [object Array]
+for (const btn of btns) {
+  btn.style.backgroundColor = 'aqua';
+}
+
+// Na verdade, é isso que o '...' faz por debaixo dos panos.
+// Por isso, o 'spread' só pode ser usado com objetos do tipo
+// 'Iterable'
+
+
+// Para iterar sobre um dado que não contém
+Symbol(Symbol.iterator);
+// ou seja, que não é 'Iterable':
+// key word 'for' junto com 'in'.
+const pessoa = {
+  nome: 'Leonard',
+  idade: 25
+}
+for (const key in pessoa) {
+  console.log(pessoa[key])
+  // 'key' retorna as chaves ENUMERÁVEIS do objeto
+  // e que não sejam símbolos.
+}
+
+
+// loop: do / while
+let i = 0;
+do {
+  console.log(i++)
+} while (i < 10);
