@@ -1,22 +1,26 @@
-// Rest operator
-// function showConsole(name, age, ...argList) {
-//   argList.forEach(arg => {
-//     console.log(arg);
-//     console.log(arguments);
-//   })
-//   return `Nome: ${name} | Idade: ${age}`;
+// #1
+// function createButton(background, color) {
+//   background = background || 'blue';
+//   if (color === undefined) {
+//     color = 'red';
+//   }
+//   const btnElement = document.createElement('button');
+//   btnElement.style.background = background;
+//   return btnElement;
 // }
-// showConsole('Leonard', 25, { genre: true, pretty: false });
+// const redBtn = createButton();
+
+function createBtn(background = 'blue', color = 'red') {
+  const btnElement = document.createElement('button');
+  btnElement.style.background = background;
+  btnElement.style.color = color;
+  return btnElement;
+}
+const btnRed = createBtn();
 
 
-// Spread operator
+// #2
 const frutas = ['Banana', 'Uva', 'Morango'];
-const legumes = ['Cenoura', 'Batata'];
-
-const comidas = [{ ...frutas }, 'Couve-flor', ...legumes];
+const comidas = ['Pizza', 'Batata'];
+comidas.push(...frutas);
 console.log(comidas);
-
-// Exemplo de como converter um array-like em array com '...'
-const btns = document.querySelectorAll('button');
-const arrbtns = [...btns];
-console.log(arrbtns); // [object Array]
