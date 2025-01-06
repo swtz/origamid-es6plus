@@ -1,31 +1,58 @@
-// "use strict";
+function $$(selectedElements) {
+  const elements = document.querySelectorAll(selectedElements);
 
-// function createButton(text) {
-//   const secretWord = 'raioForteCaiuOntemFazendoGrandeEstrago';
+  function hide() {
+    elements.forEach(element => {
+      element.style.display = 'none';
+    });
+    return this; // this -> é o objeto que está sendo retornado na função principal, ou seja,
+    // se o método não estiver nesse retorno, seu contexto será o objeto global 'window'.
+    // Logo, 'return this;' retorna o objeto final. É útil para encadear instruções.
+  }
 
-//   function element() {
-//     const btnElement = document.createElement('button');
-//     btnElement.innerText = text;
-//     return btnElement;
-//   }
+  function show() {
+    elements.forEach(element => {
+      element.style.display = 'initial';
+    });
+    return this;
+  }
 
-//   return Object.freeze({
-//     text,
-//     element
-//   })
-// }
-// const btnComprar = createButton('Comprar');
-// const btnVender = createButton('Vender');
+  function on(onEvent, callback) {
+    elements.forEach(element => {
+      element.addEventListener(onEvent, callback);
+    });
+    return this;
+  }
 
-function Pessoa(nome) {
-  if (!(this instanceof Pessoa)) // "se o usuário não passar o 'new' na frente"
-    return new Pessoa(nome); // "acessa novamente o construtor, porém, agora, com o 'new' na frente"
-  this.nome = nome // segue o código de criação do objeto
+  function addClass(className) {
+    elements.forEach(element => {
+      element.classList.add(className);
+    });
+    return this;
+  }
+
+  function removeClass(className) {
+    elements.forEach(element => {
+      element.classList.remove(className);
+    });
+    return this;
+  }
+
+  return {
+    elements,
+    hide,
+    show,
+    on,
+    addClass,
+    removeClass,
+  }
 }
 
-Pessoa.prototype.andar = function () {
-  return `${this.nome} andou`;
+// Exemplo de uso:
+const btns = $$('button').hide().show();
+
+function handleClick() {
+  btns.addClass('active');
 }
 
-const designer = Pessoa('André');
-console.log(designer); // Pessoa: {nome: 'André'};
+btns.on('click', handleClick);
