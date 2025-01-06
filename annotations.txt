@@ -1,74 +1,47 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 08 Mais Javascript
 
-// AULA 0802 | Factory Function
+// AULA 0803 | Closures e Debugging
 
-// Possuem basicamente a mesma função que
-// constructor functions / classes, ou seja,
-// são funções que retornam um objeto sem o uso
-// da key word 'new'. Isso quer dizer que os métodos
-// pertencem ao objeto em si e NÃO AO SEU PROTÓTIPO.
-
-// Por convenção, as factoryFn seguem o padrão camelCase.
-// Exemplo de factoryFn:
-function createButton(text) {
-  function element() {
-    const btnElement = document.createElement('button');
-    btnElement.innerText = text;
-    return btnElement;
-  }
-
-  return {
-    text,
-    element
+// Só existe 'closure' quando há a relação de função pai e função filha.
+let item1 = 1;
+function funcao1() { // pai
+  let item2 = 2;
+  function funcao2() { // filha
+    let item3 = 3;
+    console.log(item1);
+    console.log(item2);
+    console.log(item3);
   }
 }
-const btnBlue = createButton('Comprar'); // [object Object]
+// A 'funcao2' possui 4 escopos.
+// 1st: local -> variável 'item3';
+// 2nd: CLOSURE -> escopo de função dentro de função -> variável 'item2';
+// 3rd: script -> variável 'item1';
+// 4th: global/window.
+
+// "É como se a função filha carregasse uma mochila com as variáveis da sua função pai".
+// O escopo 'Closure' é a mochila com essas variáveis.
+
+// Debugging tip:
+debugger; // palavra chave que seta um breakpoint na linha onde é declarada.
 
 
-// FactoryFn permitem criar métodos e propriedades realmente privados:
-// Exemplo:
-function createNode(text) {
-  const secretWord = 'raioForteCaiuOntemFazendoGrandeEstrago';
-
-  return {
-    text,
+// Exemplo de closure:
+function contagem() {
+  let total = 0;
+  return function incremento() {
+    total++;
+    console.log(total);
   }
 }
-// Somente será acessível o que está sendo retornado. Tudo que estiver
-// fora desse retorno será invisível para quem usa esse objeto. Pode
-// ser útil para métodos internos que não são úteis no objeto final.
+const activeIncrement = contagem(); // 'activeIncrement' faz referência à função 'incremento'.
 
+activeIncrement(); // 1
+activeIncrement(); // 2
+activeIncrement(); // 3
+activeIncrement(); // 4
+// O valor de 'total' atualizado pela primeira chamada da função filha
+// é usado nas outras chamadas também, ou seja, o escopo closure é
+// que possibilita o acesso à variável atualizada da função pai.
 
-// Caso o dev queira 'congelar' o objeto para evitar futuras alterações
-"use strict";
-function createNode(text) {
-  return Object.freeze({
-    text,
-  })
-}
-const object = createNode('foo');
-object.text = 'bar'; // exceção é lançada no console.
-
-
-// Uma forma de instanciar um objeto sem o uso da key word 'new' usando
-// uma constructor function:
-function Pessoa(nome) {
-  if (!(this instanceof Pessoa)) // "se o usuário não passar o 'new' na frente"
-    return new Pessoa(nome); // "acessa novamente o construtor, porém, agora, com o 'new' na frente"
-  this.nome = nome // segue o código de criação do objeto
-}
-
-Pessoa.prototype.andar = function () {
-  return `${this.nome} andou`;
-}
-
-const designer = Pessoa('André');
-console.log(designer); // Pessoa: {nome: 'André'};
-
-
-// Obs.:
-if (!(this instanceof Object)); // Verifica se o prototype de 'this' 
-// possui os métodos e propriedades do constructor 'Object'.
-// Javascript
-
-if (!new.target); // ES6+
+// O script 'closures-factoryFn.js' mostra o uso do escopo closure (usar debugger).
