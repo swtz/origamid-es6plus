@@ -1,122 +1,29 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 09 Regular Expression
 
-// AULA 0901 | Regular Expression
+// AULA 0902 | Substituição
 
-// Site para escrever expressões regulares
-// https://regexr.com/
+'$&'; // faz referência ao que foi selecionado na expressão do regex.
 
-RegExp; // são expressões utilizadas para realizarmos
-// buscas / substituições em padrões de strings.
-
-// O javascript implementa 'regex' por meio do construtor acima.
-// Os padrões são colocados entre
-/ /;
-// Geralmente é usado junto com
-String.prototype.replace(/ /);
-String.prototype.split(/ /);
-
-/a-z/; // O caractere 'hífen' representa "alcance". Usa como base
-// a tabela de caracteres Unicode ou utf-8. Por isso, é importante
-// analisar a tabela quando alguma "seleção inesperada" acontecer.
-
-// https://symbl.cc/en/unicode-table/
-// https://www.tamasoft.co.jp/en/general-info/unicode.html
+/(\w+)@([\w.]+)/gi; // os '()' criam um 'grupo de captura';
+// é util para isolar valores da seleção com base na quantidade
+// de instruções 'regex'.
+// No exemplo, há 2 'grupos de captura'.
+// Podem ser acessados pelo caractere '$n', ou seja,
+// $1 -> primeiro grupo
+// $2 -> segundo grupo
 
 
-/[^a-zA-Z]/; // O caractere '^' representa "negação".
-// Será selecionado TODO o texto MENOS a expressão passada.
-// Nesse caso ele seleciona apenas os caracteres numéricos,
-// os que possuem acento, espaços, caracteres especiais e
-// assim por diante.
-
-/./; // Selecionar tudo menos quebra de linha.
+/(ta)+/gi; // os '()' concatenam uma sequência, ou seja,
+// será procurado uma sequência exata dos caracteres 'ta'.
+// Também é criado um 'grupo de captura'.
+// Caso não se queira criar o grupo de captura:
+/(?:ta)+/gi; // seleciona da mesma maneira, porém nenhum grupo é criado.
 
 
-// Existem algum caracteres especiais tais como
-`+*?^$\.[]{}()|/`;
-// Eles podem ser 'escapados' pela '\'
-// Desse modo o caractere adiante da '\'
-// será tratado como LITERAL
-/\[/; // seleciona o caractere '['
+// Positive Lookahead
+/\d(?=px)/gi; // Nesse exemplo, procura todos os dígitos que contenham
+// os caracteres 'px' à frente deles.
 
-// Obs.: Abaixo, o caractere 'g' torna a procura global, ou seja,
-// a expressão percorrerá todo o texto em busca do caractere '{'.
-// Sem ele, ele seleciona apenas a primeiro ocorrência. 
-/\{/g;
-
-
-/\w/g; // Word; seleciona todos os caracteres alfanuméricos e o underscore.
-// É um atalho para o a regex
-/[a-zA-Z0-9_]/g;
-
-/\W/; // Para selecionar o inverso, ou seja, tudo o que não for
-// alfanumérico e underscore;
-// É um atalho para o a regex
-/[^a-zA-Z0-9_]/g;
-
-/\d/g; // Seleciona todos os dígitos
-/\D/g; // Seleciona tudo que não é dígito
-
-/\s/g; // Seleciona tudo que for espaço (espaço, tabulação, quebra de linha)
-/\S/g; // Negação da seleção anterior
-
-// Obs.: lembrando que os caracteres
-/[]/;
-// representa 'classe' no regex
-// Exemplo:
-/[\S\s]/g; // seleciona todos o caracteres (mesmo funcionamento do /./;)
-
-// Dentro da classe, o regex seleciona 'char' por 'char'.
-// Fora da classe, o regex procura por sequências.
-// Exemplo:
-/iii/g; // Procura por algum texto que possua a sequência exata de 3 i's.
-
-
-/a{2,6}/g; // Caractere quantificador '{}'
-// Procura por uma sequência de 6 a's | {min, max} |
-// Se não encontrar, procura por um sequência de 2 a's.
-// Se ocultar o valor 'max', tem o comportamento de
-// "a partir de".
-
-
-/\w{1,}/; // Dica para selecionar palavra por palavra (only alphanumeric).
-/\w+/; // forma abreviada.
-
-/-\d*/; // "Pode ou não ter dígitos na frente do '-'"
-/-\d+/; // "Tem que ter dígitos na frente do '-'"
-
-/regex?p?/gi; // indica que é 'opcional' o caractere 'x' e 'p', ou seja,
-// caso existam as palavras 'regex', 'regexp' e 'rege', serão selecionadas;
-// O caractere especial '?' torna 'opcional' O CARACTERE imediatamente
-// anterior a ele.
-
-// Obs.: Flag 'i'
-/hello/i;
-// torna a procura 'case insensitive';
-
-/Junho|Julho|Brazil/g; // Seleciona ambas as palavras
-
-/\bgeo\b/gi; // Seleciona a palavra que não esteja precedida/seguida de
-// caractere alfanumérico.
-// Se ANTES/DEPOIS de 'geo' houver algum caractere DIFERENTE de alfanumérico,
-// ele seleciona.
-
-/\Bgeo\B/gi; // Comportamento contrário ao do método acima.
-
-/^\w+/g; // 'anchor beginning' seleciona a PRIMEIRA ocorrência
-// na PRIMEIRA linha.
-
-/\w+$/g; // 'anchor end' selecionado a ÚLTIMA ocorrência
-// na ÚLTIMA linha.
-
-/\w+$/gm; // Flag 'm' significa 'multiline'
-// Seleciona a ÚLTIMA ocorrência em TODAS as linhas.
-
-// Como é uma 'flag' funciona com o 'anchor beginning' também.
-
-'\n'; // caractere que representa a quebra de linha 'intencional' de uma
-// cadeia de caracteres.
-
-'\u00C6'; // its means Æ
-// É possível selecionar caracteres com base no seu código unicode
-// presenta na tabela unicode.
+// Negative Lookahead
+/\d(?!px)/gi; // Nega a seleção acima, ou seja, todo digito que não houver
+// 'px' à frente será selecionado.
