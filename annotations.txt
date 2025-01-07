@@ -1,29 +1,102 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 09 Regular Expression
 
-// AULA 0902 | Substituição
+// AULA 0903 | Patterns
 
-'$&'; // faz referência ao que foi selecionado na expressão do regex.
+// CEP
+/\d{5}[\s-]?\d{3}/g; // Seleciona todos os casos abaixo
+`
+00000-000
+00000 000
+00000000
+`;
 
-/(\w+)@([\w.]+)/gi; // os '()' criam um 'grupo de captura';
-// é util para isolar valores da seleção com base na quantidade
-// de instruções 'regex'.
-// No exemplo, há 2 'grupos de captura'.
-// Podem ser acessados pelo caractere '$n', ou seja,
-// $1 -> primeiro grupo
-// $2 -> segundo grupo
+// tip:
+/(\d{3}[.-]?){3}/g; // repete 3x a regex dentro do 'grupo de captura';
 
+// CPF
+/(?:\d{3}[.-]?){3}\d{2}/g; // Seleciona todos os casos abaixo
+`
+000.000.000-00
+000-000-000-00
+000.000.000.00
+000000000-00
+00000000000
+`;
 
-/(ta)+/gi; // os '()' concatenam uma sequência, ou seja,
-// será procurado uma sequência exata dos caracteres 'ta'.
-// Também é criado um 'grupo de captura'.
-// Caso não se queira criar o grupo de captura:
-/(?:ta)+/gi; // seleciona da mesma maneira, porém nenhum grupo é criado.
+// Obs.:
+// '/(?:<regex>)/g' evita a captura do grupo; é usado só o agrupamento
+// que ele oferece.
 
+// CNPJ
+/\d{2}[.-]?(?:\d{3}[.-]?){2}\/?\d{4}[.-]?\d{2}/g;
+`
+00.000.000/0000-00
+00000000000000
+00-000-000-0000-00
+00.000.000/000000
+00.000.000.000000
+00.000.000.0000.00
+`;
 
-// Positive Lookahead
-/\d(?=px)/gi; // Nesse exemplo, procura todos os dígitos que contenham
-// os caracteres 'px' à frente deles.
+// Telefone | referência: +55 (11) 98888-8888
+/(?:\+?55\s?)?/g; // -> seleciona todas as variantes abaixo até o '+55 ';
+/(?:\(?\d{2}\)?[\s-]?)?/g; // -> seleciona todas as variantes abaixo até o '+55 (11) ';
+// acima -> parte opcional
 
-// Negative Lookahead
-/\d(?!px)/gi; // Nega a seleção acima, ou seja, todo digito que não houver
-// 'px' à frente será selecionado.
+// abaixo -> parte obrigatória
+/\d{4,5}[-\s]?\d{4}/g; // -> seleciona o número propriamente dito | '98888-8888'.
+
+// Final regexp by coach-andre:
+/(?:\+?55\s?)?(?:\(?\d{2}\)?[\s-]?)?\d{4,5}[-\s]?\d{4}/g; // seleciona todos os casos abaixo.
+`
++55 11 98888-8888
++55 11 98888 8888
++55 11 988888888
++55 11988888888
++5511988888888
+5511988888888
+11 98888-8888
+11 98888 8888
+(11) 98888 8888
+(11) 98888-8888
+11-98888-8888
+11 98888 8888
+11988888888
+11988888888
+988888888
+(11)988888888
+98888 8888
+8888 8888
+`;
+
+// Email
+/[\w.-]+@[\w-]+\.[\w.-]+/gi; // seleciona todos os casos abaixo.
+`
+email@email.com
+email@email.com.org
+email-email@email.com
+email_email@email.com
+email.email23@email.com.br
+email.email23@empresa-sua.com.br
+c@contato.cc
+`;
+
+// Tag HTML
+/<\/?[\w\s="']+\/?>/gi; // seleciona todos os casos abaixo, menos o 'innerText'
+`
+<div>Isso é uma div</div>
+<div class="ativa">Essa está ativa</div>
+<img src="imagem" />
+<img src="imagem">
+<ul class="ativa">
+  <li>Essa está ativa</li>
+</ul>
+`;
+
+// Tag HTML | only tag name | mesma string acima
+/(?<=<\/?)[\w]+/; // seleciona todos os nomes das tag's acima.
+
+// Obs.:
+/(?<=<)[\w]+/gi; // '(?<=<)' essa regex é o Positive Lookbehind
+// Tem o comportamento parecido com Positive Lookahead, porém
+// faz a checagem do que vem ANTES do regex de seleção '[\w]+'
