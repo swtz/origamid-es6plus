@@ -1,3 +1,9 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 09 Regular Expression
 
-// AULA 0905 | Limpar CPF
+// AULA 0906 | Validar CPF
+
+// Operador lógico && (AND)
+// retorna o PRIMEIRO 'falsy' da expressão caso haja
+// qualquer valor 'falsy' nela;
+// retorna o ÚLTIMO 'truth' da expressão caso todos
+// os valores sejam 'truth'.

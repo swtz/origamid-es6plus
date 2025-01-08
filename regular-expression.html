@@ -5,31 +5,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Limpar CPF</title>
+  <title>Validar CPF</title>
 </head>
 
 <body>
   <style>
-    li {
-      padding: 5px;
-      font-family: 'IBM Plex Mono';
+    label {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: bold;
+      margin: 10px 0 5px 0;
     }
 
-    li:nth-of-type(odd) {
-      background: rgba(0, 0, 0, .1);
+    input {
+      width: 100%;
+      padding: 5px;
+      border: 2px solid black;
+      font-size: 1em;
+      box-sizing: border-box;
+      /* evita a soma do 'padding' + 'border'. Isso estoura o 'container' */
+    }
+
+    input::placeholder {
+      color: rgba(0, 0, 0, .2);
     }
   </style>
-  <h1>Clientes CPF</h1>
-  <ul class="cpf">
-    <li>111.111.111-11</li>
-    <li>222222222-22</li>
-    <li>333-333-333-33</li>
-    <li>44444444444</li>
-    <li>555 555 555 55</li>
-    <li>666666.666-66</li>
-    <li>777.777.777.77</li>
-  </ul>
-  <script src="/js/script-limpar-cpf.js"></script>
+
+  <form action="">
+    <label for="cpf">CPF</label>
+    <input type="text" name="cpf" id="cpf" placeholder="***.***.***-**">
+    <label for="email">email</label>
+    <input type="text" name="email" id="email">
+  </form>
+
+  <script type="module" src="/js/script-validar-cpf.js"></script>
 </body>
 
 </html>
