@@ -1,8 +1,10 @@
-// Tip: sempre consultar o material de apoio ao
-// usar o regex de fato.
+// Methods
 
-const frase = 'JavaScript';
-const regexp = /J/;
-const fraseNova = frase.replace(regexp, 'B');
+const frase = 'JavaScript, TypeScript, CoffeeScript, Java';
 
-console.log(fraseNova);
+const regexp = /\w+/g;
+
+let regexResult;
+while ((regexResult = regexp.exec(frase)) !== null) {
+  console.log(regexResult);
+}
