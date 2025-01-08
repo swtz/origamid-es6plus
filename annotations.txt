@@ -1,64 +1,70 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 09 Regular Expression
 
-// AULA 0904 | Methods
+// AULA 0904 | Methods pt2
 
-// Há 2 maneiras de declarar 'regex' no Javascript:
-// 1st: de maneira direta (igual é feito no site regexr.com);
-// 2nd: pelo construtor 'RegExp'. Pelo construtor, é passada uma string
-// como regex (arg0). Há 2 diferenças importantes:
-  // 1st: é preciso 'escapar' o caractere '\', ou seja, toda vez
-    // que uma regex exigir '\', dever-se-á ser colocada outra '\' antes.
-  // 2nd: no arg1, são passadas as 'flags' da regex.
-const regexp = /\w+/gi;
-const regexp1 = new RegExp('\\w+', 'gi');
-const frase = "JavaScript Linguagem 101";
-console.log(frase.replace(regexp1, 'X'));
+// .match()
+String.prototype.match(RegExp);
+const frase = 'JavaScript, TypeScript, CoffeeScript, Java';
 
-// Propriedades do objeto 'regex';
-Object.getOwnPropertyNames(RegExp.prototype);
+const regexp = /\w+/g;
+// com a flag 'g', .match() retorna uma Array com TODAS as ocorrências;
+// sem a flag 'g', .match() retorna um objeto bem parecido com os métodos
+// .exec()/.test(), ou seja, retorna o resultado da PRIMEIRA ocorrência.
+// Se não houver NENHUMA ocorrência, retorna 'null'.
+
+const results = frase.match(regexp);
+console.log(results);
 
 
-// .test()
-RegExp.prototype.test(String);
+// .split()
+String.prototype.split(RegExp); // -> string[]
+// O método .split() também aceita expressões regulares.
+// É sempre importante lembrar que esse método remove o
+// charset que o regex selecionou e coloca "o restante"
+// numa array.
+
+
+// .replace()
+String.prototype.replace(RegExp, String); // -> String
+// O arg1 do método .replace() aceita as variáveis 'regex'
+// que são geradas por meio do uso do 'grupo de captura'.
 // Exemplo:
-const phrase = "JavaScript e Java Linguagem 101";
-const regex = /Java/g;
-console.log(regex.lastIndex); // 0 | não realizou nenhuma pesquisa na 'string';
-console.log(regex.test(frase)); // true | achou o charset 'Java';
-console.log(regex.lastIndex); // 4 | parou a pesquisa no 'index' 4
-console.log(regex.test(frase)); // true | achou o charset 'Java';
-console.log(regex.lastIndex); // 17 | parou a pesquisa no 'index' 17;
-console.log(regex.test(frase)); // false | não achou o charset 'Java';
-console.log(regex.lastIndex); // 0 | termino da 'string';
+const email1 = `
+empresa@email.com
+contato@email.com
+suporte@email.com
+`;
+const regexp1 = /(\w+@)[\w.]+/g;
+const result1 = email1.replace(regexp1, '$1gmail.com');
 
-// como a 'string' terminou ele refaz o loop:
-console.log(regex.test(frase)); // true | achou o charset 'Java';
-console.log(regex.lastIndex); // 4 | parou a pesquisa no 'index' 4
+// .replace w/ callbackFn
+String.prototype.replace(RegExp, (...args) => String);
+// O retorno da callbackFn será a substituição dos valores selecionados
+// pela 'regex'.
 
+// ...args || (capturaGeral, capturaN, index, stringGeral) => {};
 
-// Para contar ocorrências de uma palavra:
-const frase1 = "JavaScript e Java Linguagem 101";
-const regexp2 = /Java/g;
-let i = 1;
-while (regexp2.test(frase1)) {
-  console.log(i++, regexp2.lastIndex);
-}
+// arguments || (capturaGeral, capturaN, index, stringGeral) => {arguments};
+// Também funciona, porém '...args' possibilita o uso do prototype de Array
+// enquanto 'arguments' é um objeto iterável.
 
+// Exemplo:
+const email = `
+empresa@email.com
+contato@email.com
+suporte@email.com
+financeiro@prefeiturabalneariogaivota.sc.gov.br
+`;
 
-RegExp.prototype.exec(String); // retorna 'null' quando não houver ocorrências.
-// .exec()
-// Esse método possui o mesmo comportamento interno do método
-// .test(), por isso, deve-se ficar atento ao usá-lo num loop,
-// pois, ao ser executado mais de uma vez, ele retoma do último
-// lugar onde aplicou a 'regex'.
+const regexp2 = /(\w+)(@[\w.]+)/g;
 
-// Abaixo, uma dica de como usá-lo com loop e evitar algum
-// comportamento inesperado por disparar a função mais de uma vez:
-const frase3 = 'JavaScript, TypeScript, CoffeeScript, Java';
-const regexp3 = /\w+/g;
-let regexResult;
-while ((regexResult = regexp3.exec(frase3)) !== null) {
-  console.log(regexResult);
-}
-// Esse método retorna uma 'array' com algumas informações sobre
-// a pesquisa feita mediante o 'regex'.
+const result = email.replace(regexp2, (...args) => {
+  const grupo1 = args[1];
+  const grupo2 = args[2];
+  const emailPattern = '@prefeiturabalneariogaivota.sc.gov.br';
+  if (grupo2 !== emailPattern) {
+    return `${grupo1}${emailPattern}`;
+  };
+  return args[0]; // capturaGeral, ou seja, não caiu na condicional
+});
+console.log(result);
