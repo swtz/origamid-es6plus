@@ -1,9 +1,19 @@
-// ANOTAÇÕES | ORIGAMID - ES6+ | 09 Regular Expression
+// ANOTAÇÕES | ORIGAMID - ES6+ | 10 Automação Front-end
 
-// AULA 0906 | Validar CPF
+// AULA 1002 | NPM
 
-// Operador lógico && (AND)
-// retorna o PRIMEIRO 'falsy' da expressão caso haja
-// qualquer valor 'falsy' nela;
-// retorna o ÚLTIMO 'truth' da expressão caso todos
-// os valores sejam 'truth'.
+// (CLI)
+// https://ss64.com/
+// Site contendo vários comandos para vários terminais
+// $ (Unix) | > (Windows)
+
+// [no arquivo package.json]:
+`
+"dependencies": {
+  "jquery": "<version>",
+  "lodash": "<version>"
+}
+`
+// [no terminal]:
+// npm install
+// Serão instaladas todas as dependências do projeto.
