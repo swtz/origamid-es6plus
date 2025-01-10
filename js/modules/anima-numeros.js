@@ -1,8 +1,7 @@
 export default function initAnimaNumeros() {
-  const numeros = document.querySelectorAll('[data-numero]');
-
-  if (numeros.length > 0) {
-    function animaNumeros() {
+  function animaNumeros() {
+    const numeros = document.querySelectorAll('[data-numero]');
+    if (numeros.length > 0) {
       numeros.forEach((numero) => {
         const total = +numero.innerHTML;
         const increment = Math.floor(total / 100);
@@ -17,17 +16,18 @@ export default function initAnimaNumeros() {
         }, 25 * Math.random());
       });
     }
-
-    function handleMutation(mutation) {
-      if (mutation[0].target.classList.contains('ativo')) {
-        observer.disconnect();
-        animaNumeros();
-      }
-    }
-
-    const observeTarget = document.querySelector('.numeros');
-    const observer = new MutationObserver(handleMutation);
-
-    observer.observe(observeTarget, { attributes: true });
   }
+
+  let observer;
+  function handleMutation(mutation) {
+    if (mutation[0].target.classList.contains('ativo')) {
+      observer.disconnect();
+      animaNumeros();
+    }
+  }
+
+  observer = new MutationObserver(handleMutation);
+  const observeTarget = document.querySelector('.numeros');
+
+  observer.observe(observeTarget, { attributes: true });
 }

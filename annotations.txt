@@ -1,19 +1,26 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 10 Automação Front-end
 
-// AULA 1002 | NPM
+// AULA 1003 | ESLint
 
-// (CLI)
-// https://ss64.com/
-// Site contendo vários comandos para vários terminais
-// $ (Unix) | > (Windows)
-
-// [no arquivo package.json]:
-`
-"dependencies": {
-  "jquery": "<version>",
-  "lodash": "<version>"
-}
-`
 // [no terminal]:
-// npm install
-// Serão instaladas todas as dependências do projeto.
+// eslint script.js | usa o eslint global
+// Isso pode ser um problema, pois, às vezes, o dev
+// usa o ESLint com alguma dependência atrelada a ele.
+
+// Por isso, deve-se usar o comando 'eslint' de maneira
+// local:
+// [no terminal]
+// node_modules/.bin/eslint.js script.js
+// Agora, será executado o 'eslint' com o contexto do projeto.
+
+
+// Prestar bastante atenção à configuração do ESLint (no momento atual)
+// [no settings.json]: (pode ser o do projeto no caso .vscode/settings.json)
+[
+  {
+    "eslint.experimental.useFlatConfig": true
+  }
+]
+// No momento, tem que seguir as configurações dessa 'FlatConfig' e o arquivo
+// eslint.config.mjs (pois se usa import/export nesse project), deve seguir
+// uma sintaxe que compatibiliza essa 'FlatConfig'.
