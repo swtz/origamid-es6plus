@@ -1,26 +1,53 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 10 Automação Front-end
 
-// AULA 1003 | ESLint
+// AULA 1004 | Webpack
 
 // [no terminal]:
-// eslint script.js | usa o eslint global
-// Isso pode ser um problema, pois, às vezes, o dev
-// usa o ESLint com alguma dependência atrelada a ele.
+// npm install --save-dev webpack-cli | 'npm'
+// Ao começar um comando iniciando com a palavra chave
+// do pacote, isso quer dizer que se usa a 'cli' desse pacote.
 
-// Por isso, deve-se usar o comando 'eslint' de maneira
-// local:
-// [no terminal]
-// node_modules/.bin/eslint.js script.js
-// Agora, será executado o 'eslint' com o contexto do projeto.
+// npx webpack === node_modules/.bin/webpack
+// 'npx' facilita o uso de cli's instaladas LOCALMENTE
 
+// [no terminal]:
+// webpack -> zsh: command not found: webpack
+// 'webpack' não foi instalado localmente; logo,
+// $ npx webpack -> o pacote é encontrado
 
-// Prestar bastante atenção à configuração do ESLint (no momento atual)
-// [no settings.json]: (pode ser o do projeto no caso .vscode/settings.json)
-[
-  {
-    "eslint.experimental.useFlatConfig": true
-  }
-]
-// No momento, tem que seguir as configurações dessa 'FlatConfig' e o arquivo
-// eslint.config.mjs (pois se usa import/export nesse project), deve seguir
-// uma sintaxe que compatibiliza essa 'FlatConfig'.
+// uglify process -> torna o arquivo feio e ilegível, porém
+// extraordinariamente menor e sem espaços
+
+// Para evitar comandos extensos e repetitivos, pode-se criar
+// um 'npm script' para definir um comando pronto
+// [no package.json]:
+`
+"scripts": {
+    "build": "webpack --config ./webpack.config.js"
+  },
+`
+  // [no terminal]:
+  // npm run build
+  // npm -> cli do Node Package Manager;
+  // run -> acessa o objeto contido em 'scripts';
+  // build -> nome da chave que carrega o comando (pode ser qualquer nome)
+  // Obs.: ao usar um 'npm script' não é necessário passar
+  // a palavra chave 'npx' para acessar a cli do recurso
+
+  // [package.json]:
+  `
+"scripts": {
+    "build": "webpack --mode production --config ./webpack.config.js",
+    "dev": "webpack --config ./webpack.config.js --watch"
+  },
+`
+// No modo 'development', caso haja algum erro no momento da 'building',
+// o webpack lança uma exceção com mais precisão da onde ocorreu o erro.
+
+// No modo 'production', ele lança a mesma exceção informando que o erro
+// está na linha 1 do 'output file', ou seja, sem nenhum precisão.
+
+// O webpack também permite a utilização de bibliotecas e códigos javascript
+// externos ao da aplicação, ou seja, ele reunirá tudo no arquivo de build.
+// Basta apenas importar esses recursos que automaticamente o webpack fará
+// o building deles.
