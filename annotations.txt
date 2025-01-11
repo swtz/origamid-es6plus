@@ -1,35 +1,55 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 10 Automação Front-end
 
-// AULA 1005 | Babel
+// AULA 1006 | Git
 
-// https://caniuse.com/
-// Site que mostra a compatibilidade de recursos do javascript
-// com a maioria dos browsers.
+// Branching
 
-// https://babeljs.io/
-// Compilador que gera um código mais antigo baseado num mais novo.
+// Cria 'galhos' na 'árvore' do projeto, a fim de que se façam
+// alterações sem interferir no 'branch principal' -> master ou main
+// Ou seja, esses 'branches' possuem uma cópia exata do código desde
+// o seu última 'commit'.
 
-// 'Polyfill'
-// Cria um método com o mesmo nome do recurso moderno, porém,
-// internamente, usa código antigo para compatibilizar com
-// browsers antigos. O código interno é denominado 'polyfill'.
+// add new branch to project tree
+// $ git branch <branch-name>
 
-// Transpiler
-// Muda a sintaxe. Transforma código novo em código antigo.
+// switch to new branch
+// $ git checkout <branch-name>
+// Obs.: esse branch NÃO ESTÁ ONLINE, ou seja, o repositório remoto
+// continua intacto.
 
-// O 'Babel' faz os 2 processos.
+// shortcut for create new branch and switch to it
+// $ git checkout -b <branch-name>
 
-// Exemplo de um 'polyfill' do método 'fetch':
-// https://github.com/JakeChampion/fetch
+// looking for a change on 'master'
+// $ git pull
+// Somente assim o dev1 pode ter certeza se alguma alteração
+// foi feita pelo dev2 no meio tempo em que ambos estavam
+// programando.
 
-// [webpack.config.js]:
-const path = require('path');
-module.exports = {
-  mode: 'development',
-  entry: ['@babel/polyfill', 'whatwg-fetch', './js/script.js'],
-  output: {
-    path: path.resolve(__dirname, './'),
-    filename: 'main.js',
-  },
-};
-// 'whatwg-fetch' é o nome do polyfill
+// Obs.: Notei que os 'branches' são criados para fins específicos,
+// portante seu ciclo de vida é temporário. São criados para, no fim,
+// serem juntados com o 'master'.
+
+// [into <new-branch>]:
+// $ git merge master
+
+// Podem haver 'conflitos' durante o 'merging'.
+// Podem ser resolvidos manualmente ou usando algumas
+// ferramentas que o VSCode proporciona.
+
+// $ git push
+// O git apresentará uma mensagem dizendo que não sabe
+// pra onde enviar o conteúdo desse 'branch'. Ora, não existe
+// esse 'branch' no repositório remoto.
+
+// add remote 'branch' upstream
+// $ git push origin <new-branch> [--set-upstream, -u]
+
+// Obs.: até o momento o branch 'master' está intacto.
+// No repositório remoto, no GitHub, aparecerá na pasta do
+// projeto, no branch 'master' a opção "Compare & pull request".
+// Isso, de fato, é o que UNIRÁ o branch 'new-branch' com o 'master'.
+
+// Para isso fazer sentido, ocorre aquela relação entre dev1 e dev2, ou seja,
+// o dev2 está fazendo alterações no código do dev1; logo, o dev1 é quem vai
+// revisar o código e "aceitar" as alterações.
