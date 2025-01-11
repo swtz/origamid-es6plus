@@ -1,53 +1,35 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 10 Automação Front-end
 
-// AULA 1004 | Webpack
+// AULA 1005 | Babel
 
-// [no terminal]:
-// npm install --save-dev webpack-cli | 'npm'
-// Ao começar um comando iniciando com a palavra chave
-// do pacote, isso quer dizer que se usa a 'cli' desse pacote.
+// https://caniuse.com/
+// Site que mostra a compatibilidade de recursos do javascript
+// com a maioria dos browsers.
 
-// npx webpack === node_modules/.bin/webpack
-// 'npx' facilita o uso de cli's instaladas LOCALMENTE
+// https://babeljs.io/
+// Compilador que gera um código mais antigo baseado num mais novo.
 
-// [no terminal]:
-// webpack -> zsh: command not found: webpack
-// 'webpack' não foi instalado localmente; logo,
-// $ npx webpack -> o pacote é encontrado
+// 'Polyfill'
+// Cria um método com o mesmo nome do recurso moderno, porém,
+// internamente, usa código antigo para compatibilizar com
+// browsers antigos. O código interno é denominado 'polyfill'.
 
-// uglify process -> torna o arquivo feio e ilegível, porém
-// extraordinariamente menor e sem espaços
+// Transpiler
+// Muda a sintaxe. Transforma código novo em código antigo.
 
-// Para evitar comandos extensos e repetitivos, pode-se criar
-// um 'npm script' para definir um comando pronto
-// [no package.json]:
-`
-"scripts": {
-    "build": "webpack --config ./webpack.config.js"
+// O 'Babel' faz os 2 processos.
+
+// Exemplo de um 'polyfill' do método 'fetch':
+// https://github.com/JakeChampion/fetch
+
+// [webpack.config.js]:
+const path = require('path');
+module.exports = {
+  mode: 'development',
+  entry: ['@babel/polyfill', 'whatwg-fetch', './js/script.js'],
+  output: {
+    path: path.resolve(__dirname, './'),
+    filename: 'main.js',
   },
-`
-  // [no terminal]:
-  // npm run build
-  // npm -> cli do Node Package Manager;
-  // run -> acessa o objeto contido em 'scripts';
-  // build -> nome da chave que carrega o comando (pode ser qualquer nome)
-  // Obs.: ao usar um 'npm script' não é necessário passar
-  // a palavra chave 'npx' para acessar a cli do recurso
-
-  // [package.json]:
-  `
-"scripts": {
-    "build": "webpack --mode production --config ./webpack.config.js",
-    "dev": "webpack --config ./webpack.config.js --watch"
-  },
-`
-// No modo 'development', caso haja algum erro no momento da 'building',
-// o webpack lança uma exceção com mais precisão da onde ocorreu o erro.
-
-// No modo 'production', ele lança a mesma exceção informando que o erro
-// está na linha 1 do 'output file', ou seja, sem nenhum precisão.
-
-// O webpack também permite a utilização de bibliotecas e códigos javascript
-// externos ao da aplicação, ou seja, ele reunirá tudo no arquivo de build.
-// Basta apenas importar esses recursos que automaticamente o webpack fará
-// o building deles.
+};
+// 'whatwg-fetch' é o nome do polyfill
