@@ -27,7 +27,7 @@
 // programando.
 
 // Obs.: Notei que os 'branches' são criados para fins específicos,
-// portante seu ciclo de vida é temporário. São criados para, no fim,
+// portanto seu ciclo de vida é temporário. São criados para, no fim,
 // serem juntados com o 'master'.
 
 // [into <new-branch>]:
@@ -47,9 +47,30 @@
 
 // Obs.: até o momento o branch 'master' está intacto.
 // No repositório remoto, no GitHub, aparecerá na pasta do
-// projeto, no branch 'master' a opção "Compare & pull request".
+// projeto, no branch 'master', a opção "Compare & pull request".
 // Isso, de fato, é o que UNIRÁ o branch 'new-branch' com o 'master'.
 
 // Para isso fazer sentido, ocorre aquela relação entre dev1 e dev2, ou seja,
 // o dev2 está fazendo alterações no código do dev1; logo, o dev1 é quem vai
 // revisar o código e "aceitar" as alterações.
+
+// [no GitHub]:
+// O botão "Merge pull request" é o passo final para unir o 'new-branch' com
+// o 'master'. A 'pull request' fica com status de 'closed'. Normalmente,
+// deleta-se o 'new-branch'.
+
+// Obs.: O 'new-branch' ainda está na máquina local, pois foi excluído somente
+// no GitHub.
+
+// deleting merged branch
+// $ git branch -d <new-branch>
+
+// Esse é o 'workflow' mais simples utilizado. Se resume a "criar uma nova branch
+// e fazer o pull request no master";
+
+// .gitignore
+// *.<file-extension> | ignora todos os arquivos com tal extensão
+
+// $ git commit | Commits sem texto
+// Para sair do editor de texto de linha de comando:
+// 'esc' + ':wq' + 'enter'
