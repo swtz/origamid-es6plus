@@ -1,21 +1,12 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 11 Refatorar Projeto Final
 
-// AULA 1102 | Scroll Suave
+// AULA 1103 | Accordion
 
-// Os módulos criados nesse projeto serão reescritos, a fim
-// de que possam ser usados por qualquer dev que queira
-// adicionar tal funcionalidade ao seu site javascript.
-
-// [into any class]:
-// O método 'constructor' NÃO ACEITA 'default values' para
-// seus argumentos.
-
-// Um padrão utilizado ao programar uma funcionalidade usando 'class'
-// é fazer 'bind' de uma função que será usada como 'callback'.
-
-// Obs.: Function.prototype.bind(this);
-// Com o método '.bind()' é possível atribuir um valor de 'this'
-// à ela; Esse método retorna o corpo da função com o novo valor
-// de 'this'. Assim, pode-se usar A MESMA função com um NOVO valor
-// de 'this.
+// [into addAccordionEvent(){}]:
+HTMLElement.prototype.addEventListener('click', () => this.toggleAccordion(HTMLElement));
+// A 'arrow function' disponibiliza um 'this' que pode ser usado
+// no corpo da função 'toggleAccordion'.
+// Esse 'this' é a 'class' que contém o método 'addAccordionEvent'.
+// Foi passado como parâmetro da função 'toggleAccordion' o 'element'
+// que será manipulado pelo DOM.
 
