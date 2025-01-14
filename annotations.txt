@@ -1,72 +1,42 @@
 // ANOTAÇÕES | ORIGAMID - ES6+ | 11 Refatorar Projeto Final
 
-// AULA 1110 | Animação Scroll
+// AULA 1111 | Debounce
 
-// O método 'animaScroll' será refeito, pois ele não é um
-// método que visa a otimização.
-// Ora, o evento 'scroll' é disparado centenas de vezes enquanto
-// o usuário percorre o site. Logo, todo o conteúdo dentro do
-// corpo do função 'animaScroll' também é executado centenas de vezes.
+// A Debounce Function é uma função 'helper', ou seja,
+// ela é usada em alguns casos específicos.
 
-// O 'coach-andre' sugeriu obter a distância do topo da 'section' de
-// modo fixo e obter a distância entre o 'scroll' e esse topo.
-// 'scroll' -> pseudoelemento que representa a barra de scroll.
+// Nesse caso, ela evita um grande acumulo de funções
+// na 'Web API' por aplicar o método 'clearTimeout',
+// o qual 'limpa' uma função do tipo 'setTimeout' na
+// 'Web API'.
 
-// create method [getDistance]
-// 1st: Obtêm-se o 'top' da 'section' de quando o 'scroll' está
-// sempre no topo (no início do site);
-HTMLElement.prototype.offsetTop; // valor ESTÁTICO que pega a distância
-// entre o 'top' da janela e o 'top' da 'section'.
+// Ela também provoca um delay na chamada dessa função.
+// Nesse caso, 200ms.
+// Exemplo:
+function debounce(callback, delay) {
+  let timer;
 
-// 2nd: pode-se usar o método .map para percorrer as 'sections',
-// obter o valor de 'offsetTop' e colocá-las num 'array', a fim de
-// que se faça esse passo apenas uma vez durante a execução do script.
-
-[...this.NodeList].map(HTMLElement => HTMLElement.prototype.offsetTop);
-
-// Com 'destructuring' é aplicado internamento o loop 'for...in', ou seja,
-// cada item da 'NodeList' se torna um item da '[]'. Logo, '[]' possui
-// o prototype de 'Array' possibilitando o uso do método '.map()'.
-
-// Com .map() é possível retornar um objeto com 2 propriedades:
-// 1st: HTMLElement
-// 2nd: HTMLElement.prototype.offsetTop
-
-// É importante subtrair o valor da propriedade 'offsetTop' pela propriedade
-// 'this.windowMetade', a fim de que a 'class' que torna visível a 'section'
-// possa ser adicionada um pouco antes do 'scroll' chegar ao 'top' da 'section'.
-
-// create method [checkDistance]
-window.scrollY; // offset do 'scrollY' em relação ao topo da página.
-// Logo, é possível checar se 'scrollY' é maior do que o valor de 'offsetTop'
-// da 'section'.
-// Ora, como o valor de 'offsetTop' foi diminuído pela metade do 'window.innerHeight',
-// 'scrollY', logo no início do site, já possui um valor MAIOR DO QUE 'offsetTop' da 'section'.
-// Assim, é possível adicionar a 'class' que torna visível a 'section' dentro dessa condição.
-
-// Por fim, o método inicializador da classe fica assim:
-foo = { // ignore 'foo'
-  init() {
-    if (this.sections.length) {
-      this.getDistance();
-      this.checkDistance();
-      window.addEventListener('scroll', this.checkDistance);
-    }
-    return this;
+  return (...args) => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      callback(...args);
+      timer = null;
+    }, delay);
   }
 }
 
-// Método para PARAR o a animação so scroll:
-foo = { // ignore 'foo'
-  stop() {
-    window.removeEventListener('scroll', this.checkDistance);
-  }
+const debouncedScroll = debounce(onScroll, 200);
+
+function onScroll() {
+  console.log('Hello, world!');
 }
+
+window.addEventListener('scroll', debouncedScroll);
 
 // #!important
-// A função de callback atrelada ao evento de 'scroll'
-// ainda é disparada dezenas de vezes enquanto o usuário
-// percorrer o site.
-// Para resolver isso, na próxima aula, será abordada uma
-// função do tipo 'debounce'.
+// Usa-se a 'debounce' function na função que é disparada muitas
+// vezes por algum evento. 
+// Assinatura: debounce(callback, delay);
+
+// Normalmente, são usadas com eventos do tipo 'scroll' e 'resize'.
 
