@@ -1,42 +1,11 @@
-// ANOTAÇÕES | ORIGAMID - ES6+ | 11 Refatorar Projeto Final
+// Conclusão do curso
+// Aula 1301
+// Considerações final
 
-// AULA 1111 | Debounce
+// Dispense plugins
+// Passo a passo (pensamento computacional) #!important
 
-// A Debounce Function é uma função 'helper', ou seja,
-// ela é usada em alguns casos específicos.
+// Testes permitem que o dev refatore o código sem a preocupação
+// de novos bugs serem criados.
 
-// Nesse caso, ela evita um grande acumulo de funções
-// na 'Web API' por aplicar o método 'clearTimeout',
-// o qual 'limpa' uma função do tipo 'setTimeout' na
-// 'Web API'.
-
-// Ela também provoca um delay na chamada dessa função.
-// Nesse caso, 200ms.
-// Exemplo:
-function debounce(callback, delay) {
-  let timer;
-
-  return (...args) => {
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(() => {
-      callback(...args);
-      timer = null;
-    }, delay);
-  }
-}
-
-const debouncedScroll = debounce(onScroll, 200);
-
-function onScroll() {
-  console.log('Hello, world!');
-}
-
-window.addEventListener('scroll', debouncedScroll);
-
-// #!important
-// Usa-se a 'debounce' function na função que é disparada muitas
-// vezes por algum evento. 
-// Assinatura: debounce(callback, delay);
-
-// Normalmente, são usadas com eventos do tipo 'scroll' e 'resize'.
-
+// Next level: Frameworks
